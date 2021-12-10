@@ -21,6 +21,7 @@ public class HelloWorldWindow {
 				try {
 					HelloWorldWindow window = new HelloWorldWindow();
 					window.frame.setVisible(true);
+					window.frame.setTitle("Time Scheduler");
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
