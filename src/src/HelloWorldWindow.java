@@ -10,7 +10,9 @@ import javax.swing.JLabel;
 public class HelloWorldWindow {
 
 	private JFrame frame;
-	private JTextField textField;
+	//private JTextField textField;
+	private JTextField userNameTextField;
+	private JTextField pwTextField;
 
 	/**
 	 * Launch the application.
@@ -45,15 +47,29 @@ public class HelloWorldWindow {
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		
-		JButton btnNewButton = new JButton("New button");
-		btnNewButton.setBounds(172, 161, 89, 23);
+		JButton btnNewButton = new JButton("Login");
+		btnNewButton.setBounds(114, 189, 180, 32);
 		frame.getContentPane().add(btnNewButton);
-		btnNewButton.setText("OK");
 		
-		JLabel lblNewLabel = new JLabel("New label");
-		lblNewLabel.setBounds(172, 87, 81, 14);
-		frame.getContentPane().add(lblNewLabel);
-		lblNewLabel.setText("Hello World!!");
+		
+		JLabel userNameLabel = new JLabel("Username:");
+		userNameLabel.setBounds(114, 58, 81, 14);
+		frame.getContentPane().add(userNameLabel);
+		//lblNewLabel.setText("Hello World!!");
+		
+		userNameTextField = new JTextField();
+		userNameTextField.setBounds(114, 74, 140, 23);
+		frame.getContentPane().add(userNameTextField);
+		userNameTextField.setColumns(10);
+		
+		JLabel pwLabel = new JLabel("Password:");
+		pwLabel.setBounds(114, 108, 81, 14);
+		frame.getContentPane().add(pwLabel);
+		
+		pwTextField = new JTextField();
+		pwTextField.setBounds(114, 127, 140, 23);
+		frame.getContentPane().add(pwTextField);
+		pwTextField.setColumns(10);
 		
 		
 	}
