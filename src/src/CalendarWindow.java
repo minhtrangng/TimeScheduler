@@ -50,6 +50,35 @@ public class CalendarWindow extends JFrame{
 	static JLabel eventLabel;
 	
 	
+	/**
+	 * Launch the application.
+	 */
+	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					CalendarWindow window = new CalendarWindow();
+					window.frame.setVisible(true);
+					window.frame.setTitle("Calendar");
+					window.frame.setContentPane(window.panelCalendar);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
+	
+	/**
+	 * Create the application.
+	 */
+	public CalendarWindow() {
+		initialize();
+	}
+	
+	public void setVisible(boolean visible){
+	    frame.setVisible(visible);
+	}
+	
 
 
 		
@@ -366,34 +395,7 @@ public class CalendarWindow extends JFrame{
 	}
 	
 	
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					CalendarWindow window = new CalendarWindow();
-					window.frame.setVisible(true);
-					window.frame.setTitle("Calendar");
-					window.frame.setContentPane(window.panelCalendar);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
 	
-	/**
-	 * Create the application.
-	 */
-	public CalendarWindow() {
-		initialize();
-	}
-	
-	public void setVisible(boolean visible){
-	    frame.setVisible(visible);
-	}
 	
 }
 
