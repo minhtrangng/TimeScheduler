@@ -152,6 +152,16 @@ public class CalendarWindow extends JFrame{
 		// ADD EVENT BUTTON
 		addEventBtn = new JButton("Add new event");
 		addEventBtn.setBounds(367, 398, 146, 23);
+		addEventBtn.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				NewEventWindow newEvent = new NewEventWindow();
+				newEvent.setVisible(true);
+			}
+			
+		});
 		
 		
 		// EVENT LABEL

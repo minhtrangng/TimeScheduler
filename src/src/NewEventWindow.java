@@ -9,7 +9,7 @@ import javax.swing.JComboBox;
 import javax.swing.JButton;
 import javax.swing.JFormattedTextField;
 
-public class AddEventWindow {
+public class NewEventWindow {
 
 	private JFrame frame;
 	private JLabel eventLabel = new JLabel("Event:");
@@ -32,7 +32,7 @@ public class AddEventWindow {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					AddEventWindow window = new AddEventWindow();
+					NewEventWindow window = new NewEventWindow();
 					window.frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -44,10 +44,15 @@ public class AddEventWindow {
 	/**
 	 * Create the application.
 	 */
-	public AddEventWindow() {
+	public NewEventWindow() {
 		initialize();
 	}
 
+	public void setVisible(boolean visible){
+	    frame.setVisible(visible);
+	}
+	
+	
 	/**
 	 * Initialize the contents of the frame.
 	 */
