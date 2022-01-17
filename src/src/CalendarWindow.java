@@ -6,9 +6,11 @@ import java.awt.Color;
 import java.awt.Component;
 import java.awt.Container;
 import java.awt.EventQueue;
+import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.GregorianCalendar;
+import java.util.Properties;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
@@ -26,23 +28,32 @@ import javax.swing.event.TableModelEvent;
 import javax.swing.event.TableModelListener;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
+
+import org.jdatepicker.impl.*;
+
+
 import javax.swing.JTextField;
+
+import javax.swing.JComponent;
 
 public class CalendarWindow extends JFrame{
 
 	private JFrame frame;
-	static Container pane;
+	//static Container pane;
 	
-	static JButton prevBtn, nextBtn;
-	static JLabel monthLabel, yearLabel;
+	//static JButton prevBtn, nextBtn;
+	//static JLabel monthLabel, yearLabel;
 	
-	static JTable calendarTable;
-	static JComboBox yearCombo;
-	static DefaultTableModel calendarTableModel;
-	static JScrollPane scrollPaneCalendar;
-	static JPanel panelCalendar;
+	//static JTable calendarTable;
+	//static JComboBox yearCombo;
+	//static DefaultTableModel calendarTableModel;
+	//static JScrollPane scrollPaneCalendar;
+	//static JPanel panelCalendar;
 	
-	static int realYear, realMonth, realDay, currentYear, currentMonth;
+	//static int realYear, realMonth, realDay, currentYear, currentMonth;
+	
+	
+	
 	private JLabel lblNewLabel;
 	
 	static JTextField eventField;
@@ -60,7 +71,7 @@ public class CalendarWindow extends JFrame{
 					CalendarWindow window = new CalendarWindow();
 					window.frame.setVisible(true);
 					window.frame.setTitle("Calendar");
-					window.frame.setContentPane(window.panelCalendar);
+					//window.frame.setContentPane(window.panelCalendar);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -105,102 +116,107 @@ public class CalendarWindow extends JFrame{
 		frame.setBounds(100, 100, 450, 300);
 		//frame.setContentPane(new CalendarWindow().panelCalendar);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		//frame.getContentPane().setLayout(null);
+		frame.getContentPane().setLayout(null);
 		frame.setSize(600, 650);
-		pane = frame.getContentPane();
-		pane.setLayout(null);
+		//pane = frame.getContentPane();
+		//pane.setLayout(null);
+		frame.setVisible(true);
 		
 		
 		// PREVIOUS BUTTON
-		prevBtn = new JButton("<");
+		//prevBtn = new JButton("<");
 		/*prevBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 			}
 		});*/
-		prevBtn.setBounds(66, 11, 78, 23);
+		//prevBtn.setBounds(66, 11, 78, 23);
 		//frame.getContentPane().add(prevBtn);
 		
 		
 		// NEXT BUTTON
-		nextBtn = new JButton(">");
-		nextBtn.setBounds(435, 11, 78, 23);
+		//nextBtn = new JButton(">");
+		//nextBtn.setBounds(435, 11, 78, 23);
 		//frame.getContentPane().add(nextBtn);
 		
 		
 		// MONTH LABEL
-		monthLabel = new JLabel("January");
-		monthLabel.setBounds(177, 11, 270, 50);
+		//monthLabel = new JLabel("January");
+		//monthLabel.setBounds(177, 11, 270, 50);
 		//frame.getContentPane().add(monthLabel);
 		
 		
 		// YEAR LABEL
-		yearLabel = new JLabel("Year: ");
-		yearLabel.setBounds(66, 381, 46, 14);
+		//yearLabel = new JLabel("Year: ");
+		//yearLabel.setBounds(66, 381, 46, 14);
 		//frame.getContentPane().add(yearLabel);
 		
 		// YEAR COMBO
-		yearCombo = new JComboBox();
-		yearCombo.setBounds(122, 377, 90, 23);
+		//yearCombo = new JComboBox();
+		//yearCombo.setBounds(122, 377, 90, 23);
 		//frame.getContentPane().add(yearCombo);
+		
+		
+		// JDatePicker
+		UtilDateModel model = new UtilDateModel();
+		Properties p = new Properties();
+		p.put("text.today", "Today");
+		p.put("text.month", "Month");
+		p.put("text.year", "Year");
+		JDatePanelImpl datePanel = new JDatePanelImpl(model, p);
+		JDatePickerImpl datePicker = new JDatePickerImpl(datePanel, new DateLabelFormatter());
+		frame.add(datePicker);
 		
 		// EVENT FIELD
 		eventField = new JTextField();
 		eventField.setBounds(55, 466, 465, 110);
-		//eventField.setColumns(10);		
+		//eventField.setColumns(10);
+		frame.getContentPane().add(eventField);
 		
 		
 		// ADD EVENT BUTTON
 		addEventBtn = new JButton("Add new event");
 		addEventBtn.setBounds(367, 398, 146, 23);
-		addEventBtn.addActionListener(new ActionListener() {
-
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
-				NewEventWindow newEvent = new NewEventWindow();
-				newEvent.setVisible(true);
-			}
-			
-		});
+		frame.getContentPane().add(addEventBtn);
 		
 		
 		// EVENT LABEL
 		eventLabel = new JLabel("EVENT");
 		eventLabel.setBounds(55, 448, 46, 14);
+		frame.getContentPane().add(eventLabel);
 		
 		
 		// CALENDAR TABLE MODEL
-		calendarTableModel = new DefaultTableModel() {
+		/*calendarTableModel = new DefaultTableModel() {
 			public boolean isCellEditable(int rowIndex, int mCollIndex) {
 				return false;
 			}
-		};
+		};*/
 		
 		
 		// CALENDAR TABLE
-		calendarTable = new JTable(calendarTableModel);
+		//calendarTable = new JTable(calendarTableModel);
 		
 		
 		// SCROLL PANE CALENDAR
-		scrollPaneCalendar = new JScrollPane(calendarTable);
+		//scrollPaneCalendar = new JScrollPane(calendarTable);
 		
 		
 		// PANEL CALENDAR
-		panelCalendar = new JPanel(null);
+		//panelCalendar = new JPanel(null);
 		
 		
 		// SET BORDER FOR PANEL CALENDAR
-		panelCalendar.setBorder(BorderFactory.createTitledBorder("Calendar"));
+		//panelCalendar.setBorder(BorderFactory.createTitledBorder("Calendar"));
 		
 		// REGISTER ACTION LISTENERS FOR BUTTONS: PREVIOUS/NEXT BUTTON, COMBOYEAR COMBO BOX
-		prevBtn.addActionListener(new prevBtnAction());
+		/*prevBtn.addActionListener(new prevBtnAction());
 		nextBtn.addActionListener(new nextBtnAction());
-		yearCombo.addActionListener(new yearComboAction());
+		yearCombo.addActionListener(new yearComboAction());*/
 		
 		
 		// ADD CONTROLS TO PANE
 		//pane.add(panelCalendar);
-		panelCalendar.add(monthLabel);
+		/*panelCalendar.add(monthLabel);
 		panelCalendar.add(yearLabel);
 		panelCalendar.add(yearCombo);
 		panelCalendar.add(prevBtn);
@@ -209,12 +225,12 @@ public class CalendarWindow extends JFrame{
 		panelCalendar.add(eventField);
 		panelCalendar.add(addEventBtn);
 		panelCalendar.add(eventLabel);
-		pane.add(panelCalendar);
+		pane.add(panelCalendar);*/
 		
 		// SET BOUNDS
-		panelCalendar.setBounds(0, 0, 594, 671);
+		//panelCalendar.setBounds(0, 0, 594, 671);
 		//frame.setContentPane(panelCalendar);
-		scrollPaneCalendar.setBounds(66, 45, 447, 303);
+		//scrollPaneCalendar.setBounds(66, 45, 447, 303);
 		
 		// MAKE FRAME VISIBLE
 		frame.setResizable(false);
@@ -222,39 +238,41 @@ public class CalendarWindow extends JFrame{
 	
 		
 		// GET REAL MONTH/YEAR
-		GregorianCalendar calendar = new GregorianCalendar(); // create calendar
+		/*GregorianCalendar calendar = new GregorianCalendar(); // create calendar
 		realDay = calendar.get(GregorianCalendar.DAY_OF_MONTH);
 		realMonth = calendar.get(GregorianCalendar.MONTH);
 		realYear = calendar.get(GregorianCalendar.YEAR);
 		currentMonth = realMonth;
 		currentYear = realYear;
+		*/
 		
 		// ADD HEADERS - WEEKDAYS
-		String[] headers = {"SUN", "MON", "TUE", "WED", "THU", "FRI", "SAT"};
+		/*String[] headers = {"SUN", "MON", "TUE", "WED", "THU", "FRI", "SAT"};
 		for(int i=0; i<7; i++) {
 			calendarTableModel.addColumn(headers[i]);
 		}
 		
 		calendarTable.getParent().setBackground(calendarTable.getBackground());
-		
+		*/
 		
 		// NO RESIZE/REORDER
-		calendarTable.setColumnSelectionAllowed(true);
+		/*calendarTable.setColumnSelectionAllowed(true);
 		calendarTable.setRowSelectionAllowed(true);
 		calendarTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-		
+		*/
 		
 		// SET ROW/COLUMN COUNT
-		calendarTable.setRowHeight(38);
+		/*calendarTable.setRowHeight(38);
 		
 		
 		
 		calendarTableModel.setColumnCount(7);
 		calendarTableModel.setRowCount(6);
+		*/
 		
 		
 		// POPULATE TABLE
-		for(int i=realYear-100; i<=realYear+100; i++) {
+		/*for(int i=realYear-100; i<=realYear+100; i++) {
 			yearCombo.addItem(String.valueOf(i));
 		}
 		
@@ -271,25 +289,23 @@ public class CalendarWindow extends JFrame{
 				
 			}
 		});
+		*/
 		
 		
 		// USE ADD EVENT BUTTON TO ADD EVENT TO CALENDAR CELL
-		/*addEventBtn.addActionListener(new ActionListener() {
+		addEventBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if(eventField == null) {
-					JOptionPane.showMessageDialog(frame, "Event is empty!");
-				}
-				else {
-					String 
-				}
+				// TODO Auto-generated method stub
+				NewEventWindow newEvent = new NewEventWindow();
+				newEvent.setVisible(true);
 			}
-		});*/
+		});
 	
 	}
 	
 	
 	// FUNCTION: REFRESCH CALENDAR
-	public static void refreshCalendar(int month, int year) {
+	/*public static void refreshCalendar(int month, int year) {
 		String[] months = {"JANUARY", "FERBRUARY", "MARCH", "APRIL", "MAY", "JUNE", "JULY", "AUGUST", "SEPTEMBER",
 				"OCTOBER", "NOVEMBER", "DECEMBER"};
 		
@@ -335,8 +351,9 @@ public class CalendarWindow extends JFrame{
 		
 		//calendarTable.addMouseListener(new java.awt.event.MouseAdapter())
 	}
+	*/
 	
-	
+	/*
 	static class tblCalendarRenderer extends DefaultTableCellRenderer {
 
 		public Component getTableCellRendererComponent (JTable table, Object value, boolean selected, boolean focused,
@@ -366,8 +383,9 @@ public class CalendarWindow extends JFrame{
 		}
 		
 	}
+	*/
 	
-	
+	/*
 	static class prevBtnAction implements ActionListener{
 		public void actionPerformed(ActionEvent e) {
 			if(currentMonth == 0) {
@@ -380,7 +398,9 @@ public class CalendarWindow extends JFrame{
 			refreshCalendar(currentMonth, currentYear);
 		}
 	}
+	*/
 	
+	/*
 	static class nextBtnAction implements ActionListener{
 		public void actionPerformed (ActionEvent e) {
 			if(currentMonth == 11) {
@@ -393,7 +413,9 @@ public class CalendarWindow extends JFrame{
 			refreshCalendar(currentMonth, currentYear);
 		}
 	}
+	*/
 	
+	/*
 	static class yearComboAction implements ActionListener{
 		public void actionPerformed (ActionEvent e) {
 			if(yearCombo.getSelectedItem() != null) {
@@ -403,7 +425,8 @@ public class CalendarWindow extends JFrame{
 			}
 		}
 	}
-	
+	*/
+
 	
 	
 	
