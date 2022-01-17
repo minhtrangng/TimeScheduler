@@ -105,15 +105,15 @@ public class LoginWindow extends JFrame {
 					statement = connection.prepareStatement("SELECT * FROM logindata WHERE username=? and password=?");
 					statement.setString(1, userText);
 					statement.setString(2, pwText);
-					
 					result = statement.executeQuery();
 					
 					if(result.next()) {
 						dispose();
 						JOptionPane.showMessageDialog(frame,  "Login Sucessful!!");
 						frame.setVisible(false);
-						CalendarWindow calendarWindow = new CalendarWindow();
-						calendarWindow.setVisible(true);
+						DatePickerTesting datePicker= new DatePickerTesting();
+						datePicker.setUserName(userText);
+						datePicker.setVisible(true);
 					}
 					else {
 						JOptionPane.showMessageDialog(frame, "Invalid Username or Password!!");
