@@ -41,6 +41,10 @@ public class NewEventWindow {
 	private JButton cancelBtn = new JButton("CANCEL");
 	private final JLabel usernameLabel = new JLabel("<user_name>");
 	private final JLabel userLabel = new JLabel("USER: ");
+	JLabel beginTimeLabel = new JLabel("Begin at:");
+	private JTextField beginHour;
+	JLabel colonLabel = new JLabel(":");
+	private JTextField beginMinute;
 	
 	
 	public void setDate(String value) {
@@ -121,11 +125,11 @@ public class NewEventWindow {
 		eventTxtField.setColumns(10);
 		
 		
-		durationLabel.setBounds(28, 106, 74, 14);
+		durationLabel.setBounds(28, 144, 74, 14);
 		frame.getContentPane().add(durationLabel);
 		
 		
-		durationTxtField.setBounds(131, 99, 46, 20);
+		durationTxtField.setBounds(131, 141, 46, 20);
 		//durationTxtField.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(java.text.NumberFormat.getIntegerInstance())));
 		frame.getContentPane().add(durationTxtField);
 		durationTxtField.addKeyListener(new KeyAdapter() {
@@ -139,27 +143,65 @@ public class NewEventWindow {
 		});
 		
 		
-		durationLabel1.setBounds(187, 106, 46, 14);
+		durationLabel1.setBounds(187, 144, 46, 14);
 		frame.getContentPane().add(durationLabel1);
 		
 		
-		reminderLabel.setBounds(28, 142, 74, 14);
+		reminderLabel.setBounds(28, 181, 74, 14);
 		frame.getContentPane().add(reminderLabel);
 		
 		
 		
-		reminderDropdown.setBounds(131, 140, 102, 18);
+		reminderDropdown.setBounds(131, 179, 102, 18);
 		frame.getContentPane().add(reminderDropdown);
 		
 		
-		saveBtn.setBounds(298, 206, 89, 23);
+		saveBtn.setBounds(298, 229, 89, 23);
 		frame.getContentPane().add(saveBtn);
 		
 		
 		
 		
-		cancelBtn.setBounds(50, 206, 89, 23);
+		cancelBtn.setBounds(50, 229, 89, 23);
 		frame.getContentPane().add(cancelBtn);
+		
+		
+		beginTimeLabel.setBounds(28, 105, 74, 14);
+		frame.getContentPane().add(beginTimeLabel);
+		
+		beginHour = new JTextField();
+		beginHour.setBounds(131, 107, 26, 20);
+		frame.getContentPane().add(beginHour);
+		beginHour.setColumns(10);
+		
+		beginHour.addKeyListener(new KeyAdapter() {
+			public void keyTyped(KeyEvent e) {
+				char c = e.getKeyChar();
+				if(((c < '0') || (c > '9')) && (c != KeyEvent.VK_BACK_SPACE)) {
+					e.consume();
+					// if the input is not a number, it will be ignored.
+				}
+			}
+		});
+		
+		
+		colonLabel.setBounds(159, 113, 14, 14);
+		frame.getContentPane().add(colonLabel);
+		
+		beginMinute = new JTextField();
+		beginMinute.setColumns(10);
+		beginMinute.setBounds(167, 107, 26, 20);
+		frame.getContentPane().add(beginMinute);
+		
+		beginMinute.addKeyListener(new KeyAdapter() {
+			public void keyTyped(KeyEvent e) {
+				char c = e.getKeyChar();
+				if(((c < '0') || (c > '9')) && (c != KeyEvent.VK_BACK_SPACE)) {
+					e.consume();
+					// if the input is not a number, it will be ignored.
+				}
+			}
+		});
 		
 		
 		cancelBtn.addActionListener((ActionListener) new ActionListener() {
@@ -184,6 +226,9 @@ public class NewEventWindow {
 				String eventName = eventTxtField.getText();
 				int eventDuration = Integer.parseInt(durationTxtField.getText());
 				String eventReminder = (String) reminderDropdown.getSelectedItem();
+				String beginHourValue = beginHour.getText();
+				String beginMinuteValue = beginMinute.getText();
+				String beginTimeValue = beginHourValue + ":" + beginMinuteValue;
 				ResultSet result = null;
 				Connection connection = null;
 				
@@ -195,13 +240,14 @@ public class NewEventWindow {
 					//statement1 = connection.prepareStatement("")
 					
 					statement = connection.prepareStatement(
-							"INSERT INTO eventdata(username, eventdate, activity, eventduration, reminder)"
-							+ "VALUES(?, ?, ?, ?, ?)");
+							"INSERT INTO eventdata(username, eventdate, activity, begintime, eventduration, reminder)"
+							+ "VALUES(?, ?, ?, ?, ?, ?)");
 					statement.setString(1,  username);
 					statement.setString(2, eventDate);
 					statement.setString(3, eventName);
-					statement.setInt(4, eventDuration);
-					statement.setString(5, eventReminder);
+					statement.setString(4, beginTimeValue);
+					statement.setInt(5, eventDuration);
+					statement.setString(6, eventReminder);
 					
 					statement.executeUpdate();
 					

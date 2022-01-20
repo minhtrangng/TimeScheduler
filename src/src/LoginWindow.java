@@ -136,18 +136,39 @@ public class LoginWindow extends JFrame {
 				
 				//ResultSet result = null;
 				Connection connection = null;
+				
+				ResultSet resultCheck = null;
+				PreparedStatement statementCheck = null;
+				
+				
 				PreparedStatement statement = null;
+				
 				
 				try {
 					connection = JDBCMySQLConnection.getConnection();
-					statement = connection.prepareStatement("INSERT INTO logindata(username, password)"
-							+ "VALUES (?,?)");
-					statement.setString(1, userNameText);
-					statement.setString(2, pwText);
 					
-					statement.executeUpdate();
+					statementCheck = connection.prepareStatement("SELECT username FROM logindata WHERE username = '" + userNameText + "'");
+					resultCheck = statementCheck.executeQuery();
 					
-					JOptionPane.showMessageDialog(frame, "Registerd Successful!!\nNow you can try to login!!");
+					if(resultCheck.next()) {
+						JOptionPane.showMessageDialog(frame, "This username is already exists. Please try with other name!");
+						
+					}
+					else {
+						try {
+							statement = connection.prepareStatement("INSERT INTO logindata(username, password)"
+									+ "VALUES (?,?)");
+							statement.setString(1, userNameText);
+							statement.setString(2, pwText);
+							
+							statement.executeUpdate();
+							
+							JOptionPane.showMessageDialog(frame, "Registerd Successful!!\nNow you can try to login!!");
+						}catch(SQLException sqlException) {
+							sqlException.printStackTrace();
+						}
+					}
+					
 				} catch(SQLException sqlException) {
 					sqlException.printStackTrace();
 				}
