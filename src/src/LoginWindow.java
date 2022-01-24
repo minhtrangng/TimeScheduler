@@ -5,6 +5,8 @@ package src;
 import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.nio.charset.StandardCharsets;
+import java.security.MessageDigest;
 import java.sql.*;
 
 import javax.swing.JButton;
@@ -39,6 +41,33 @@ public class LoginWindow extends JFrame {
 		JDBCMySQLConnection dbConnection = new JDBCMySQLConnection();
 		
 	}
+	
+	public String encryptPass (String password) {
+		try {
+			//Retrieve instance of the encryptor of SHA-256
+			MessageDigest digestor = MessageDigest.getInstance("SHA-256");
+			
+			// Retrieve bytes to encrypt
+			byte[] encodedHash = digestor.digest(password.getBytes(StandardCharsets.UTF_8));
+			StringBuilder encryptionValue = new StringBuilder(2 * encodedHash.length);
+			
+			// Perform encryption
+			for(int i = 0; i < encodedHash.length; i++) {
+				String hexVal = Integer.toHexString(0xff & encodedHash[i]);
+				if(hexVal.length() == 1) {
+					encryptionValue.append('0');
+				}
+				encryptionValue.append(hexVal);
+			}
+			
+			// Return encrypted Value
+			return encryptionValue.toString();
+			
+		}catch (Exception ex) {
+			return ex.getMessage();
+		}
+	}
+	
 
 	/**
 	 * Create the application.
@@ -94,6 +123,9 @@ public class LoginWindow extends JFrame {
 				String userText = userNameTextField.getText();
 				String pwText = passwordField.getText();
 				
+				// encrypt the entered password and then compare it to the one, which is stored in the database
+				String encryptedPass = encryptPass(pwText);
+				
 				ResultSet result = null;
 				Connection connection = null;
 				//Statement statement = null;
@@ -104,7 +136,7 @@ public class LoginWindow extends JFrame {
 					connection = JDBCMySQLConnection.getConnection();
 					statement = connection.prepareStatement("SELECT * FROM logindata WHERE username=? and password=?");
 					statement.setString(1, userText);
-					statement.setString(2, pwText);
+					statement.setString(2, encryptedPass);
 					result = statement.executeQuery();
 					
 					if(result.next()) {
@@ -134,6 +166,9 @@ public class LoginWindow extends JFrame {
 				String userNameText = userNameTextField.getText();
 				String pwText = passwordField.getText();
 				
+				// Encrypt the password before save in the database
+				String encryptedPw = encryptPass(pwText);
+				
 				//ResultSet result = null;
 				Connection connection = null;
 				
@@ -159,7 +194,8 @@ public class LoginWindow extends JFrame {
 							statement = connection.prepareStatement("INSERT INTO logindata(username, password)"
 									+ "VALUES (?,?)");
 							statement.setString(1, userNameText);
-							statement.setString(2, pwText);
+							// Save the encrypted password
+							statement.setString(2, encryptedPw);
 							
 							statement.executeUpdate();
 							
