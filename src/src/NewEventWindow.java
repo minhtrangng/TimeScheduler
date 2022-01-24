@@ -10,10 +10,14 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.DateFormat;
 import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.Locale;
+import java.util.*;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -222,13 +226,23 @@ public class NewEventWindow {
 				// TODO Auto-generated method stub
 				
 				String username = usernameLabel.getText();
-				String eventDate = date.getText();
+				String eDate = date.getText();
+				SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+				java.util.Date javaEventDate = null;
+				try {
+					javaEventDate = formatter.parse(eDate);
+				} catch (ParseException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+				java.sql.Date sqlEventDate = new java.sql.Date(javaEventDate.getTime());
 				String eventName = eventTxtField.getText();
 				int eventDuration = Integer.parseInt(durationTxtField.getText());
 				String eventReminder = (String) reminderDropdown.getSelectedItem();
 				String beginHourValue = beginHour.getText();
 				String beginMinuteValue = beginMinute.getText();
 				String beginTimeValue = beginHourValue + ":" + beginMinuteValue;
+				
 				ResultSet result = null;
 				Connection connection = null;
 				
@@ -243,7 +257,7 @@ public class NewEventWindow {
 							"INSERT INTO eventdata(username, eventdate, activity, begintime, eventduration, reminder)"
 							+ "VALUES(?, ?, ?, ?, ?, ?)");
 					statement.setString(1,  username);
-					statement.setString(2, eventDate);
+					statement.setDate(2, sqlEventDate);
 					statement.setString(3, eventName);
 					statement.setString(4, beginTimeValue);
 					statement.setInt(5, eventDuration);
