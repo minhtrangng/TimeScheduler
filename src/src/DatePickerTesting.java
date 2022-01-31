@@ -2,12 +2,15 @@ package src;
 
 
 import java.awt.EventQueue;
+import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.font.TextAttribute;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Map;
 import java.util.Properties;
 
 import javax.swing.JFrame;
@@ -31,6 +34,13 @@ public class DatePickerTesting {
 	JLabel userNameLabel = new JLabel("<user_name>");
 	JLabel userLabel = new JLabel("USER: ");
 	
+	JLabel dateLabel = new JLabel("DATE:");
+	JLabel eventLabel = new JLabel("EVENT: ");
+	JLabel eventInfo = new JLabel("(e v e n t i n f o ...)");
+	JButton checkBtn = new JButton("CHECK!");
+	JButton addEventBtn = new JButton("ADD NEW EVENT");
+	
+	JButton logoutBtn = new JButton("Logout");
 
 	/**
 	 * Launch the application.
@@ -96,25 +106,48 @@ public class DatePickerTesting {
 		frame.getContentPane().add(userLabel);
 		
 		
-		JLabel dateLabel = new JLabel("DATE:");
+		
 		dateLabel.setBounds(10, 313, 46, 14);
 		frame.getContentPane().add(dateLabel);
 		
-		JLabel eventLabel = new JLabel("EVENT: ");
+		
 		eventLabel.setBounds(26, 63, 70, 14);
+		Font font = eventLabel.getFont();
+		Map attributes = font.getAttributes();
+		attributes.put(TextAttribute.UNDERLINE, TextAttribute.UNDERLINE_ON);
+		eventLabel.setFont(font.deriveFont(attributes));
 		frame.getContentPane().add(eventLabel);
 		
-		JLabel eventInfo = new JLabel("(e v e n t i n f o ...)");
+		
 		eventInfo.setBounds(25, 89, 378, 31);
+		eventInfo.setFont(new Font("San_Serif", Font.BOLD, 16));
 		frame.getContentPane().add(eventInfo);
 		
-		JButton addEventBtn = new JButton("ADD NEW EVENT");
+		
 		addEventBtn.setBounds(217, 175, 150, 31);
 		frame.getContentPane().add(addEventBtn);
 		
-		JButton checkBtn = new JButton("CHECK!");
+		
 		checkBtn.setBounds(10, 179, 89, 23);
 		frame.getContentPane().add(checkBtn);
+		
+		
+		logoutBtn.setBounds(311, 36, 89, 23);
+		frame.getContentPane().add(logoutBtn);
+		logoutBtn.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				frame.dispose();
+				frame.setVisible(false);
+				LoginWindow datePicker = new LoginWindow();
+				datePicker.setVisible(true);
+			}
+			
+		});
+		
+	
 		
 		
 		

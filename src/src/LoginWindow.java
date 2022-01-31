@@ -69,7 +69,10 @@ public class LoginWindow extends JFrame {
 		}
 	}
 	
-
+	public void setVisible(boolean visible){
+	    frame.setVisible(visible);
+	}
+	
 	/**
 	 * Create the application.
 	 */
@@ -117,6 +120,7 @@ public class LoginWindow extends JFrame {
 		frame.getContentPane().add(registerBtn);
 		
 		
+		
 		// LOGIN BUTTON
 		loginBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -141,12 +145,23 @@ public class LoginWindow extends JFrame {
 					result = statement.executeQuery();
 					
 					if(result.next()) {
-						dispose();
-						JOptionPane.showMessageDialog(frame,  "Login Sucessful!!");
-						frame.setVisible(false);
-						DatePickerTesting datePicker= new DatePickerTesting();
-						datePicker.setUserName(userText);
-						datePicker.setVisible(true);
+						if(userText.equalsIgnoreCase("admin")) {
+							// If username == "admin" => go to window for admin
+							dispose();
+							frame.setVisible(false);
+							AdminWindow adminWindow = new AdminWindow();
+							adminWindow.setVisible(true);
+						}
+						else {
+							// Otherwise => go to normal window for user
+							dispose();
+							JOptionPane.showMessageDialog(frame,  "Login Sucessful!!");
+							frame.setVisible(false);
+							DatePickerTesting datePicker= new DatePickerTesting();
+							datePicker.setUserName(userText);
+							datePicker.setVisible(true);
+						}
+						
 					}
 					else {
 						JOptionPane.showMessageDialog(frame, "Invalid Username or Password!!");
@@ -164,7 +179,7 @@ public class LoginWindow extends JFrame {
 		// REGISTER BUTTON
 		registerBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				String userNameText = userNameTextField.getText();
+				/*String userNameText = userNameTextField.getText();
 				String pwText = passwordField.getText();
 				
 				// Encrypt the password before save in the database
@@ -209,6 +224,11 @@ public class LoginWindow extends JFrame {
 				} catch(SQLException sqlException) {
 					sqlException.printStackTrace();
 				}
+				*/
+				
+				RegistrationWindow registration = new RegistrationWindow();
+				registration.setVisible(true);
+				
 			}
 		}
 		);
