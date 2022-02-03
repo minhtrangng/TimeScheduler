@@ -87,6 +87,7 @@ public class DeleteUser {
 	/**
 	 * Refresh button is created
 	 * After username is successfully deleted
+	 * The class DatabaseTableRegistration will be called,
 	 * the table is refreshed and displayed again 
 	 */
 		
