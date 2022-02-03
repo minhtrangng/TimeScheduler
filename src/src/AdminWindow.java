@@ -21,40 +21,13 @@ import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
 
-
-
-
 public class AdminWindow extends JFrame{
 
 	private JFrame frame;
 	private JPanel contentPane;
 	
 	private JLabel label, ID, Username;
-	
-	public String dates[]
-	        = { "1", "2", "3", "4", "5",
-	            "6", "7", "8", "9", "10",
-	            "11", "12", "13", "14", "15",
-	            "16", "17", "18", "19", "20",
-	            "21", "22", "23", "24", "25",
-	            "26", "27", "28", "29", "30",
-	            "31" };
-	
-	public String month[]
-	        = { "Jan", "Feb", "Mar", "Apr",
-	            "May", "Jun", "July", "Aug",
-	            "Sup", "Oct", "Nov", "Dec" };
-	
-	public String year[]
-	        = { "1995", "1996", "1997", "1998",
-	            "1999", "2000", "2001", "2002",
-	            "2003", "2004", "2005", "2006",
-	            "2007", "2008", "2009", "2010",
-	            "2011", "2012", "2013", "2014",
-	            "2015", "2016", "2017", "2018",
-	            "2019", "2020", "2021", "2022" };
 	 
-
 	/**
 	 * Launch the application.
 	 */
@@ -104,13 +77,13 @@ public class AdminWindow extends JFrame{
 		lAdmin.setBounds(73, 113, 193, 52);
 		contentPane.add(lAdmin);
 		
-		/**
-		 * Access of all user button created
-		 * After pressing the button, 
-		 * in the method actionPerformed(ActionEvent e) 
-		 * the class DatabaseTableRegistration is called
-		 * =>table with all information about user is displayed 
-		 */
+	/**
+	 * Access of all user button created
+	 * After pressing the button, 
+	 * in the method actionPerformed(ActionEvent e) 
+	 * the class DatabaseTableRegistration is called
+	 * =>table with all information about user is displayed 
+	 */
 		
 		JButton Access = new JButton("Access of all user");
         Access.setFont(new Font("Tahoma", Font.PLAIN, 10));
@@ -126,7 +99,7 @@ public class AdminWindow extends JFrame{
         });
 
         
-          /**
+        /**
          * Edit user button created, 
          * After pressing the button 
          * in the method actionPeformed(ActionEvent e) 
@@ -145,8 +118,9 @@ public class AdminWindow extends JFrame{
             	editWindow.setVisible(true);
             }
         });
+		
         
-      /**
+      	/**
          * Delete user button created, 
          * After pressing the button 
          * in the method actionPeformed(ActionEvent e) 
@@ -171,8 +145,7 @@ public class AdminWindow extends JFrame{
         });
         
         
-        
-        /**
+	/**
          * Logout button=> with JOptionPane.showConfirmDialog window 
          * three options are offered (Yes, No and Cancel) 
          * If yes button was pressed, then login window will be opened again 
