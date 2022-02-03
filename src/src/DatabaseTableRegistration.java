@@ -21,6 +21,7 @@ public class DatabaseTableRegistration extends JFrame{
 	/**
 	 * Launch the application.
 	 */
+	
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -41,6 +42,7 @@ public class DatabaseTableRegistration extends JFrame{
 	/**
 	 * Create the application.
 	 */
+	
 	public DatabaseTableRegistration() {
 		initialize();
 	}
@@ -48,6 +50,7 @@ public class DatabaseTableRegistration extends JFrame{
 	/**
 	 * Initialize the contents of the frame.
 	 */
+	
 	private void initialize() {
 		frame = new JFrame();
 		frame.setBounds(100, 100, 450, 300);
@@ -58,6 +61,12 @@ public class DatabaseTableRegistration extends JFrame{
 		ResultSet result =  null;
 		PreparedStatement statement = null;
 		ResultSetMetaData resultMetaData = null;
+		
+		/**
+		 * In this class, the records from the database are output 
+		 * in the form of the table
+		 * In this case from the table logindata, which was created in MySQL
+		 */
 		
 		try {
 			connection = JDBCMySQLConnection.getConnection();
