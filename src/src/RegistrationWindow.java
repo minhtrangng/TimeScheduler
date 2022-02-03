@@ -41,12 +41,7 @@ public class RegistrationWindow {
 	            "21", "22", "23", "24", "25",
 	            "26", "27", "28", "29", "30",
 	            "31" };
-	
-	/*public String month[]
-	        = {"-", "Jan", "Feb", "Mar", "Apr",
-	            "May", "Jun", "July", "Aug",
-	            "Sup", "Oct", "Nov", "Dec" };*/
-    
+
     public String month[] 
     		= {"-", "1", "2", "3", "4",
     	            "5", "6", "7", "8",
@@ -64,21 +59,11 @@ public class RegistrationWindow {
 	        	"2012", "2013", "2014","2015", 
 	        	"2016", "2017", "2018","2019", 
 	        	"2020", "2021", "2022" };
-	 
-	public String password_regex = "^(?=.*\\d)(?=.*[a-z])(?=.*[A-Z]).{8,32}$";
-	/**
-	 *^               # start of the string
-	 *(?=.*\d)        # a digit must occur at least once
-	 *(?=.*[a-z])     # a lower case letter must occur at least once
-	 *(?=.*[A-Z])     # an upper case letter must occur at least once
-	 *.{8,32}         # 8-32 character password, both inclusive
-	 *$               # end of the string 
-	*/
-	
 
 	/**
 	 * Launch the application.
 	 */
+	
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -93,6 +78,11 @@ public class RegistrationWindow {
 		});
 	}
 	
+	/**
+	 * Encryption
+	 * @param password
+	 * @return encrypted value
+	 */
 	
 	public String encryptPass (String password) {
 		try {
@@ -124,6 +114,7 @@ public class RegistrationWindow {
 	/**
 	 * Create the application.
 	 */
+	
 	public RegistrationWindow() {
 		initialize();
 	}
@@ -135,6 +126,7 @@ public class RegistrationWindow {
 	/**
 	 * Initialize the contents of the frame.
 	 */
+	
 	private void initialize() {
 		frame = new JFrame();
 		frame.setBounds(100, 100, 450, 300);
@@ -214,12 +206,6 @@ public class RegistrationWindow {
 		pass.setFont(new Font("Thoma", Font.BOLD, 15));
 		pass.setBounds(20, 390, 273, 93);
 		contentPane.add(pass);
-		
-		/*JLabel repeatPass = new JLabel("Repeat password:");
-		repeatPass.setFont(new Font("Thoma", Font.BOLD, 15));
-		repeatPass.setBounds(20, 420, 273, 93);
-		contentPane.add(repeatPass);
-		*/
         
 		JComboBox genderComboBox = new JComboBox(gender);
 		genderComboBox.setBounds(180, 95, 200, 18);
@@ -294,20 +280,19 @@ public class RegistrationWindow {
         tfpass.setBackground(Color.WHITE);
 		tfpass.setForeground(Color.BLACK);
 		contentPane.add(tfpass);
+	
 		
-		/*JPasswordField tfrepeatPass = new JPasswordField();
-		tfrepeatPass.setBounds(180, 458, 200, 20);
-        tfrepeatPass.setBackground(Color.WHITE);
-		tfrepeatPass.setForeground(Color.BLACK);
-		contentPane.add(tfrepeatPass);
-		*/
+	/**
+	 * Return button was created, 
+	 * with which is redirected to login window
+	 */
 		
 		JButton returnB = new JButton("Return");
         returnB.setFont(new Font("Tahoma", Font.PLAIN, 10));
         returnB.setBounds(200, 510, 115, 25);
         contentPane.add(returnB);
         returnB.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent event) {
+            public void actionPerformed(ActionEvent e) {
             	//should go to login window
             	frame.dispose();
             	LoginWindow loginWindow = new LoginWindow();
@@ -315,26 +300,20 @@ public class RegistrationWindow {
             }
         });
         
-        
-        
-        
-		
-        
         /**
          * Register button is created
          * After which components are set and location with setBounds() method
          * Button is added to the JPanel
          * The ActionListener class is created,
-         * where should also implement the actionPerformed(ActionEvent event) method
-         * In this method the source getSource() is queried 
-         * and matched with button
+         * where should also implement the actionPerformed(ActionEvent e) method
+         * Password was encrypted
          * In this method the connection to the database is created
          * After the user has entered all the required data in the registration window,
          * this data is stored in the database
-         * with the if else branches the whole error messages are output
+         * With the if else branches the whole error messages are output,
          * where they also occur 
-         */
-        
+         */ 
+       
         JButton registerB = new JButton("Register");
         registerB.setBounds(350, 510, 115, 25);  
         registerB.setFont(new Font("Tahoma", Font.PLAIN, 10));
@@ -359,8 +338,6 @@ public class RegistrationWindow {
 				String plz = tfplz.getText();
 				String city = tfcity.getText();
 				String mobNummer = tfmobNumber.getText();
-				
-				Pattern passwordPattern = Pattern.compile(password_regex);
 				
 				String password = tfpass.getText();
 				//String repeatPassword = tfrepeatPass.getText();
@@ -435,19 +412,6 @@ public class RegistrationWindow {
 								saveStatement.executeUpdate();
 								JOptionPane.showMessageDialog(frame, "Data registered successfully!!");
 							}
-							
-							/*if(passwordPattern.matcher(password).matches()){
-								if(!(password.equalsIgnoreCase(repeatPassword))) {
-			                        JOptionPane.showMessageDialog(null,"Passwords are not equal! Please try again.");
-								}
-								else {
-									saveStatement.executeUpdate();
-									JOptionPane.showMessageDialog(frame, "Data registered successfully!!");
-								}
-							}
-							else {
-								JOptionPane.showMessageDialog(frame, "Password is wrong");
-							}*/
 							
 						}catch(SQLException sqlException){
 							sqlException.printStackTrace();
