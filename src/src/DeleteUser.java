@@ -50,6 +50,7 @@ public class DeleteUser {
 	/**
 	 * Create the application.
 	 */
+	
 	public DeleteUser() {
 		initialize();
 	}
@@ -57,6 +58,7 @@ public class DeleteUser {
 	/**
 	 * Initialize the contents of the frame.
 	 */
+	
 	private void initialize() {
 		frame = new JFrame();
 		frame.setBounds(100, 100, 450, 300);
@@ -80,11 +82,19 @@ public class DeleteUser {
 		unTextField.setForeground(Color.BLACK);
 		contentPane.add(unTextField);
 		
+	
+	/**
+	 * Refresh button is created
+	 * After username is successfully deleted
+	 * the table is refreshed and displayed again 
+	 */
 		
-		JButton Refresh = new JButton("Refresh");
+	JButton Refresh = new JButton("Refresh");
         Refresh.setFont(new Font("Tahoma", Font.PLAIN, 10));
+	Refresh.setBounds(302, 100, 80, 20);
+        contentPane.add(Refresh);
         Refresh.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent event) {
+            public void actionPerformed(ActionEvent e) {
               	DatabaseTableRegistration frame = new DatabaseTableRegistration();
         		//frame.setDefaultCloseOperation(EXIT_ON_CLOSE);
         		frame.pack();
@@ -93,27 +103,36 @@ public class DeleteUser {
             }
         });
         
-        Refresh.setBounds(302, 100, 80, 20);
-        contentPane.add(Refresh);
+	/**
+         * Back button is created
+         */
         
     	JButton backB = new JButton("Back");
         backB.setFont(new Font("Tahoma", Font.PLAIN, 10));
+	backB.setBounds(47, 100, 80, 20);
+        contentPane.add(backB);
         backB.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent event) {
+            public void actionPerformed(ActionEvent e) {
         		frame.dispose();	
             }
         });
         
-        backB.setBounds(47, 100, 80, 20);
-        contentPane.add(backB);
+      	/**
+         * Delete button is created
+    	 * It's allows the admin to enter the usernames 
+    	 * and delete them from the database by pressing delete button
+    	 * After pressing the delete button "Username deleted" is displayed
+    	 * If username doesnt't exists "Username doesn't exist" is displayed
+    	 * To do all this, the connection to the database is needed 
+    	 */
 		
-		JButton Delete = new JButton("Delete");
+	JButton Delete = new JButton("Delete");
         Delete.setFont(new Font("Tahoma", Font.PLAIN, 10));
         Delete.setBounds(176, 100, 80, 20);
         contentPane.add(Delete);
         
         Delete.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent event){
+            public void actionPerformed(ActionEvent e){
             	
             	Connection connection;
             	ResultSet result;
