@@ -29,9 +29,6 @@ import javax.swing.border.EmptyBorder;
 
 
 
-
-
-
 public class EditUser extends JFrame{
 
 	private JFrame frame;
@@ -46,10 +43,6 @@ public class EditUser extends JFrame{
 	            "26", "27", "28", "29", "30",
 	            "31" };
 	
-	/*public String month[]
-	        = { "Jan", "Feb", "Mar", "Apr",
-	            "May", "Jun", "July", "Aug",
-	            "Sup", "Oct", "Nov", "Dec" };*/
 	
 	public String month[] 
     		= { "1", "2", "3", "4",
@@ -69,6 +62,10 @@ public class EditUser extends JFrame{
 	        	"2012", "2013", "2014","2015", 
 	        	"2016", "2017", "2018","2019", 
 	        	"2020", "2021", "2022" };
+	
+	/**
+	 * Button search is created to search for the username when edited 
+	 */
 	
 	JLabel whichUserLabel = new JLabel("Which user do you want to change?");
 	JTextField whichUserTxt;
@@ -100,6 +97,7 @@ public class EditUser extends JFrame{
 	/**
 	 * Launch the application.
 	 */
+	
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -120,6 +118,7 @@ public class EditUser extends JFrame{
 	/**
 	 * Create the application.
 	 */
+	
 	public EditUser() {
 		initialize();
 	}
@@ -127,6 +126,7 @@ public class EditUser extends JFrame{
 	/**
 	 * Initialize the contents of the frame.
 	 */
+	
 	private void initialize() {
 		frame = new JFrame();
 		frame.setBounds(100, 100, 450, 300);
@@ -157,6 +157,14 @@ public class EditUser extends JFrame{
         
         searchBtn.setBounds(383, 48, 89, 23);
         contentPane.add(searchBtn);
+		
+	/**
+         * After the user has been entered, 
+         * the search button is pressed to search for the user
+         * If the user is in the database, 
+         * the textfields are filled with their data 
+         * and the data is modified 
+         */
         
         searchBtn.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
@@ -284,12 +292,6 @@ public class EditUser extends JFrame{
 		pass.setBounds(20, 390, 273, 93);
 		contentPane.add(pass);
 		
-		/*JLabel repeatPass = new JLabel("Repeat password:");
-		repeatPass.setFont(new Font("Thoma", Font.BOLD, 15));
-		repeatPass.setBounds(20, 420, 273, 93);
-		contentPane.add(repeatPass);
-		*/
-        
 		
 		genderComboBox.setBounds(180, 95, 200, 18);
 		contentPane.add(genderComboBox);
@@ -363,13 +365,25 @@ public class EditUser extends JFrame{
 		tfpass.setForeground(Color.BLACK);
 		contentPane.add(tfpass);
 		
+	/**
+	 * The three(Back, Refresh and Update) buttons are created
+	 * Back button=>goes back to admin panel window
+	 * Refresh button=>the table from the database will be refreshed after the update,
+	 * that is after what has been changed in the records 
+	 * the class DatabaseTableRegistration will be called
+	 * Update button=>establish connection to the database 
+	 * so that records can be changed
+	 * After the user has been successfully updated
+	 * "User is updated" is displayed
+	 */
+		
 		JButton backB = new JButton("Back");
         backB.setFont(new Font("Tahoma", Font.PLAIN, 10));
         backB.setBounds(50, 510, 115, 25);
         contentPane.add(backB);
         
         backB.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent event) {
+            public void actionPerformed(ActionEvent e) {
             	dispose();
             	frame.setVisible(false);
             }
@@ -381,7 +395,7 @@ public class EditUser extends JFrame{
         contentPane.add(refreshB);
         
         refreshB.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent event) {
+            public void actionPerformed(ActionEvent e) {
 
         		DatabaseTableRegistration frame = new DatabaseTableRegistration();
         		//frame.setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -396,7 +410,7 @@ public class EditUser extends JFrame{
         contentPane.add(updateB);
         
         updateB.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent event) {
+            public void actionPerformed(ActionEvent e) {
             	String usrDay = dateComboBox.getSelectedItem().toString();
             	String usrMonth = monthComboBox.getSelectedItem().toString();
             	String usrYear = yearComboBox.getSelectedItem().toString();
