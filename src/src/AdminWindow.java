@@ -58,6 +58,7 @@ public class AdminWindow extends JFrame{
 	/**
 	 * Launch the application.
 	 */
+	
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -78,6 +79,7 @@ public class AdminWindow extends JFrame{
 	/**
 	 * Create the application.
 	 */
+	
 	public AdminWindow() {
 		initialize();
 	}
@@ -85,6 +87,7 @@ public class AdminWindow extends JFrame{
 	/**
 	 * Initialize the contents of the frame.
 	 */
+	
 	private void initialize() {
 		frame = new JFrame();
 		frame.setBounds(100, 100, 450, 300);
@@ -104,9 +107,9 @@ public class AdminWindow extends JFrame{
 		/**
 		 * Access of all user button created
 		 * After pressing the button, 
-		 * in the method actionPerformed(ActionEvent event) 
-		 * the class DatenbankTableUser is called
-		 * =>table from the database is displayed
+		 * in the method actionPerformed(ActionEvent e) 
+		 * the class DatabaseTableRegistration is called
+		 * =>table with all information about user is displayed 
 		 */
 		
 		JButton Access = new JButton("Access of all user");
@@ -115,7 +118,7 @@ public class AdminWindow extends JFrame{
         contentPane.add(Access);
         
         Access.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent event) {
+            public void actionPerformed(ActionEvent e) {
             	DatabaseTableRegistration allUser = new DatabaseTableRegistration();
         		//allUser.pack();
         		allUser.setVisible(true);
@@ -123,31 +126,31 @@ public class AdminWindow extends JFrame{
         });
 
         
-        /**
+          /**
          * Edit user button created, 
          * After pressing the button 
-         * in the method actionPeformed(ActionEvent event) 
-         * an extra method is created clickEditUserButton() 
+         * in the method actionPeformed(ActionEvent e) 
+         * the class EditUser is called 
          */
-        
+		
         JButton Edit = new JButton("Edit user");
         Edit.setFont(new Font("Tahoma", Font.PLAIN, 10));
         Edit.setBounds(420, 150, 115, 25);
         contentPane.add(Edit);
         
         Edit.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent event) {
+            public void actionPerformed(ActionEvent e) {
                 // do something
             	EditUser editWindow = new EditUser();
             	editWindow.setVisible(true);
             }
         });
         
-        /**
+      /**
          * Delete user button created, 
          * After pressing the button 
-         * in the method actionPeformed(ActionEvent event) 
-         * an extra method is created clickDeleteUserButton()  
+         * in the method actionPeformed(ActionEvent e) 
+         * the class DeleteUser is called
          */
 
         JButton Delete = new JButton("Delete user");
@@ -172,9 +175,9 @@ public class AdminWindow extends JFrame{
         /**
          * Logout button=> with JOptionPane.showConfirmDialog window 
          * three options are offered (Yes, No and Cancel) 
-         * If yes button was pressed, then admin login window will be opened again 
-         * and admin can login again
-         * and if no or cancel is pressed, admin window is displayed 
+         * If yes button was pressed, then login window will be opened again 
+         * and admin/user can login again
+         * and if no or cancel is pressed, admin panel window is displayed 
          */
         
         JButton Logout = new JButton("Logout");
@@ -197,7 +200,4 @@ public class AdminWindow extends JFrame{
         
 	}
 	
-	
-	
-
 }
