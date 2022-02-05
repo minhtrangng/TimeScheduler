@@ -17,6 +17,13 @@ import javax.swing.JOptionPane;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
+/**
+ * This class allow user to create a new account and use the registered information to login.
+ * 
+ * @author minhtrang
+ *
+ */
+
 public class LoginWindow extends JFrame {
 
 	private JFrame frame;
@@ -42,6 +49,15 @@ public class LoginWindow extends JFrame {
 		JDBCMySQLConnection dbConnection = new JDBCMySQLConnection();
 		
 	}
+	
+	/**
+	 * The password needs to be securely saved and not as plaintext
+	 * <p>
+	 * This method will hash the entered password and 
+	 * return the password as ciphertext in form of String
+	 * @param password the entered password
+	 * @return the hashed password
+	 */
 	
 	public String encryptPass (String password) {
 		try {
@@ -69,6 +85,10 @@ public class LoginWindow extends JFrame {
 		}
 	}
 	
+	/**
+	 * This method setVisible make the frame appear on the screen 
+	 * when the parameter has the 'true' value  
+	 */
 	public void setVisible(boolean visible){
 	    frame.setVisible(visible);
 	}
@@ -120,7 +140,21 @@ public class LoginWindow extends JFrame {
 		frame.getContentPane().add(registerBtn);
 		
 		
-		
+		/**
+		 * After the user cliked the login button, the compare process will be executed behind.
+		 * <p>
+		 * The typed-in username and password will be taken out and compare with the data in the database.
+		 * The password was saved as ciphertext, because of that the entered password will be first hashed and then compared.
+		 * <p>
+		 * We will receive the same result if we hash two identical texts. 
+		 * That makes hash process easier to use in compare to the other encrypt procedures
+		 * <p>
+		 * It is first checked if admin is trying to log in. 
+		 * The admin will be redirected to the different window comparing with the normal users
+		 * <p>
+		 * If the user is not admin, the entered information will be verified.
+		 * After examining, a dialogue window will appear with the corresponding annoucement
+		 */
 		// LOGIN BUTTON
 		loginBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -153,17 +187,23 @@ public class LoginWindow extends JFrame {
 							adminWindow.setVisible(true);
 						}
 						else {
-							// Otherwise => go to normal window for user
+							/**
+							 * After successfully loged in, the login window will disappear 
+							 * and the new window (Date Picker Window) will be visible 
+							 */
 							dispose();
 							JOptionPane.showMessageDialog(frame,  "Login Sucessful!!");
 							frame.setVisible(false);
-							DatePickerTesting datePicker= new DatePickerTesting();
+							DatePickerWindow datePicker= new DatePickerWindow();
 							datePicker.setUserName(userText);
 							datePicker.setVisible(true);
 						}
 						
 					}
 					else {
+						/**
+						 * Otherwise, the user will be announced that username or password is invalid
+						 */
 						JOptionPane.showMessageDialog(frame, "Invalid Username or Password!!");
 					}
 				} catch(SQLException sqlException) {
@@ -175,57 +215,16 @@ public class LoginWindow extends JFrame {
 			}
 		);
 		
-		
+		/**
+		 * In case the user does not have a account yet, he/she must create one.
+		 * <p>
+		 * Register button will lead to a new window (Registration Window), 
+		 * where the user must type in couples information, for example: First name, last name, address,
+		 * username, password, ...  
+		 */
 		// REGISTER BUTTON
 		registerBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				/*String userNameText = userNameTextField.getText();
-				String pwText = passwordField.getText();
-				
-				// Encrypt the password before save in the database
-				String encryptedPw = encryptPass(pwText);
-				
-				//ResultSet result = null;
-				Connection connection = null;
-				
-				ResultSet resultCheck = null;
-				PreparedStatement statementCheck = null;
-				
-				
-				PreparedStatement statement = null;
-				
-				
-				try {
-					connection = JDBCMySQLConnection.getConnection();
-					
-					statementCheck = connection.prepareStatement("SELECT username FROM logindata WHERE username = '" + userNameText + "'");
-					resultCheck = statementCheck.executeQuery();
-					
-					if(resultCheck.next()) {
-						JOptionPane.showMessageDialog(frame, "This username is already exists. Please try with other name!");
-						
-					}
-					else {
-						try {
-							statement = connection.prepareStatement("INSERT INTO logindata(username, password)"
-									+ "VALUES (?,?)");
-							statement.setString(1, userNameText);
-							// Save the encrypted password
-							statement.setString(2, encryptedPw);
-							
-							statement.executeUpdate();
-							
-							JOptionPane.showMessageDialog(frame, "Registerd Successful!!\nNow you can try to login!!");
-						}catch(SQLException sqlException) {
-							sqlException.printStackTrace();
-						}
-					}
-					
-				} catch(SQLException sqlException) {
-					sqlException.printStackTrace();
-				}
-				*/
-				
 				RegistrationWindow registration = new RegistrationWindow();
 				registration.setVisible(true);
 				

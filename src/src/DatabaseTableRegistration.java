@@ -12,6 +12,11 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 
+/**
+ * 
+ * @author selma
+ *
+ */
 public class DatabaseTableRegistration extends JFrame{
 
 	private JFrame frame;

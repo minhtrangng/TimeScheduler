@@ -28,6 +28,13 @@ import javax.swing.JComboBox;
 import javax.swing.JButton;
 import javax.swing.JFormattedTextField;
 
+/**
+ * This class requires user to fulfill event information.  
+ * 
+ * @author minhtrang
+ *
+ */
+
 public class NewEventWindow {
 
 	private JFrame frame;
@@ -91,6 +98,10 @@ public class NewEventWindow {
 		initialize();
 	}
 
+	/**
+	 * This method setVisible make the frame appear on the screen 
+	 * when the parameter has the 'true' value  
+	 */
 	public void setVisible(boolean visible){
 	    frame.setVisible(visible);
 	}
@@ -209,7 +220,9 @@ public class NewEventWindow {
 			}
 		});
 		
-		
+		/**
+		 * Click the CANCEl button to terminate the process and go back to the previous window.
+		 */
 		cancelBtn.addActionListener((ActionListener) new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				frame.dispose();
@@ -219,8 +232,12 @@ public class NewEventWindow {
 		
 		
 		
-		// SAVE BUTTON:  SAVE THE INPUT DATA INTO THE DATABASE
 		
+		/**
+		 * After clicked the SAVE button, 
+		 * all the entered information will be saved 
+		 * in the database along with the username, so that they can be fetched later. 
+		 */
 		saveBtn.addActionListener(new ActionListener() {
 
 			@Override

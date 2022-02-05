@@ -27,7 +27,9 @@ import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
 
-
+/**
+ * @author selma (with some idea from minhtrang)
+ */
 
 public class EditUser extends JFrame{
 
@@ -456,8 +458,8 @@ public class EditUser extends JFrame{
                     statement.executeUpdate();
                     
                     JOptionPane.showMessageDialog(frame, "User is updated");
-            	}catch(Exception e) {
-            		System.out.println(e);
+            	}catch(Exception e1) {
+            		System.out.println(e1);
             	}
            
             }

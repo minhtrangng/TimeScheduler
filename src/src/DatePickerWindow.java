@@ -26,8 +26,14 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
+/**
+ * This class allow user to add new event and check event at specified date.
+ * 
+ * @author minhtrang
+ *
+ */
 
-public class DatePickerTesting {
+public class DatePickerWindow {
 
 	private JFrame frame;
 	private SpringLayout springLayout;
@@ -49,7 +55,7 @@ public class DatePickerTesting {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					DatePickerTesting window = new DatePickerTesting();
+					DatePickerWindow window = new DatePickerWindow();
 					window.frame.setVisible(true);
 					window.frame.setTitle("Calendar");
 				} catch (Exception e) {
@@ -66,7 +72,7 @@ public class DatePickerTesting {
 	/**
 	 * Create the application.
 	 */
-	public DatePickerTesting() {
+	public DatePickerWindow() {
 		initialize();
 	}
 	
@@ -147,9 +153,11 @@ public class DatePickerTesting {
 			
 		});
 		
-	
-		
-		
+		/**
+		 * The user uses the button 'Add new event' in case they want to add a new event.
+		 * <p>
+		 * The event will be saved with the choosen date and the username, so that it can be fetched later. 
+		 */
 		
 		addEventBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -166,6 +174,11 @@ public class DatePickerTesting {
 			}
 		});
 		
+		
+		/**
+		 * Check button will print out the event name if it exists at a specified date.
+		 * If there is no event at that date, blank text will be returned.
+		 */
 		checkBtn.addActionListener(new ActionListener() {
 
 			@Override
@@ -188,8 +201,8 @@ public class DatePickerTesting {
 						while(result.next()) {
 							String usrName = result.getString("username");
 							String eventContent = result.getString("activity");
-							int eventDuration = result.getInt("eventduration");
-							String eventReminder = result.getString("reminder");
+							//int eventDuration = result.getInt("eventduration");
+							//String eventReminder = result.getString("reminder");
 							
 							if(username.equalsIgnoreCase(usrName)) {
 								//eventInfo.setText(eventContent + " | Duration: " + eventDuration + " | Remind me after: " + eventReminder);

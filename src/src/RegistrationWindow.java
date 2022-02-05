@@ -26,6 +26,11 @@ import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
+/**
+ * 
+ * @author selma
+ *
+ */
 public class RegistrationWindow {
 
 	private JFrame frame;

@@ -20,7 +20,11 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
-
+/**
+ * 
+ * @author selma
+ *
+ */
 public class AdminWindow extends JFrame{
 
 	private JFrame frame;
@@ -44,6 +48,11 @@ public class AdminWindow extends JFrame{
 			}
 		});
 	}
+	
+	/**
+	 * This method setVisible make the frame appear on the screen 
+	 * when the parameter has the 'true' value  
+	 */
 	
 	public void setVisible(boolean visible){
 	    frame.setVisible(visible);

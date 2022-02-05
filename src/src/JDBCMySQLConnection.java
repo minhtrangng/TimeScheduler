@@ -7,10 +7,23 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
+/**
+ * This class acts like a brigde between IDE Java Eclipse and the local database.
+ * <p>
+ * Reference: <a href="https://www.javaguides.net/2019/07/login-application-using-java-swing-jdbc-mysql-example-tutorial.html">
+ * Connect Database MySQL to IDE Java Eclipse (Last accessed: 05.02.2022)</a>
+ * 
+ * @author minhtrang
+ *
+ */
 public class JDBCMySQLConnection {
 
 	private static JDBCMySQLConnection instance = new JDBCMySQLConnection();
 	
+	/**
+	 * These four variables ({@link URL}, {@link user}, {@link password}, {@link driverClass}) 
+	 * are constant and must match with the local database information.
+	 */
 	public static final String URL = "jdbc:mysql://localhost:3306/timescheduler";
 	public static final String user = "root";
 	public static final String password = "Mtrang1901";
@@ -36,6 +49,10 @@ public class JDBCMySQLConnection {
 		return connection;
 	}
 	
+	/**
+	 * The connection will be established by calling this method.
+	 * @return the connection
+	 */
 	public static Connection getConnection() {
 		return instance.createConnection();
 	}
