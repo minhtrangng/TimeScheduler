@@ -1,0 +1,26 @@
+Appointments from 2022-01-24 to 2022-01-30
+========================
+TUESDAY2022-01-25
+Activity: OOP
+Begintime: 8:15
+Eventduration: 1
+========================
+THURSDAY2022-01-27
+Activity: E-Polo Project
+Begintime: 10:00
+Eventduration: 1
+========================
+WEDNESDAY2022-01-26
+Activity: Chinese course
+Begintime: 17:30
+Eventduration: 1
+========================
+FRIDAY2022-01-28
+Activity: Go to market
+Begintime: 11:00
+Eventduration: 1
+========================
+FRIDAY2022-01-28
+Activity: Chinese course
+Begintime: 10:00
+Eventduration: 1

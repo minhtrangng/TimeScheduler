@@ -53,10 +53,21 @@ public class NewEventWindow {
 	private JButton cancelBtn = new JButton("CANCEL");
 	private final JLabel usernameLabel = new JLabel("<user_name>");
 	private final JLabel userLabel = new JLabel("USER: ");
-	JLabel beginTimeLabel = new JLabel("Begin at:");
+	JLabel beginTimeLabel = new JLabel("BEGIN AT:");
 	private JTextField beginHour;
 	JLabel colonLabel = new JLabel(":");
 	private JTextField beginMinute;
+	JLabel descriptionLabel = new JLabel("DESCRIPTIONS:");
+	private JTextField descriptionTxt;
+	private final JLabel locationLabel = new JLabel("LOCATION:");
+	private final JTextField locationTxt = new JTextField();
+	private final JLabel participantLabel = new JLabel("NUMBER OF PARTICIPANT(s):");
+	
+	private ArrayList<JTextField> participantDataText;
+	private String[] digits = {"0", "1", "2", "3", "4", "5"};
+	JComboBox<String> participantDropdown = new JComboBox(digits);
+	private ArrayList<String> participantEmail = new ArrayList<>();
+	//private final JTextField textField = new JTextField();
 	
 	
 	public void setDate(String value) {
@@ -112,10 +123,13 @@ public class NewEventWindow {
 	 */
 	@SuppressWarnings("deprecation")
 	private void initialize() {
+		
 		frame = new JFrame();
 		frame.setBounds(100, 100, 450, 300);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
+		frame.setTitle("Add New Event");
+		frame.setSize(520, 700);
 		
 		
 		usernameLabel.setBounds(330, 11, 89, 14);
@@ -173,13 +187,13 @@ public class NewEventWindow {
 		frame.getContentPane().add(reminderDropdown);
 		
 		
-		saveBtn.setBounds(298, 229, 89, 23);
+		saveBtn.setBounds(330, 575, 89, 23);
 		frame.getContentPane().add(saveBtn);
 		
 		
 		
 		
-		cancelBtn.setBounds(50, 229, 89, 23);
+		cancelBtn.setBounds(68, 575, 89, 23);
 		frame.getContentPane().add(cancelBtn);
 		
 		
@@ -210,6 +224,7 @@ public class NewEventWindow {
 		beginMinute.setBounds(167, 107, 26, 20);
 		frame.getContentPane().add(beginMinute);
 		
+		
 		beginMinute.addKeyListener(new KeyAdapter() {
 			public void keyTyped(KeyEvent e) {
 				char c = e.getKeyChar();
@@ -219,6 +234,65 @@ public class NewEventWindow {
 				}
 			}
 		});
+		
+		
+		
+		descriptionLabel.setBounds(28, 226, 93, 14);
+		frame.getContentPane().add(descriptionLabel);
+		
+		descriptionTxt = new JTextField();
+		descriptionTxt.setBounds(131, 223, 189, 61);
+		frame.getContentPane().add(descriptionTxt);
+		descriptionTxt.setColumns(10);
+		
+		locationLabel.setBounds(28, 303, 81, 14);
+		frame.getContentPane().add(locationLabel);
+		
+		
+		locationTxt.setBounds(131, 300, 189, 38);
+		locationTxt.setColumns(10);
+		frame.getContentPane().add(locationTxt);
+		
+		
+		participantLabel.setBounds(28, 360, 165, 28);
+		frame.getContentPane().add(participantLabel);
+		
+		
+		participantDropdown.setBounds(246, 365, 74, 18);
+		frame.getContentPane().add(participantDropdown);
+		participantDropdown.setSelectedIndex(0);
+		
+		participantDropdown.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				int participantNr = Integer.parseInt((String)participantDropdown.getSelectedItem());
+				for(int i=0; i<participantNr; i++) {
+					participantDataText.get(i).setVisible(true);
+				}
+				for(int i=participantNr; i<5; i++) {
+					participantDataText.get(i).setVisible(false);
+				}
+			}
+			
+		});
+		
+		/*textField.setBounds(96, 404, 196, 20);
+		textField.setColumns(10);
+		frame.getContentPane().add(textField);*/
+		
+		participantDataText = new ArrayList<>();
+		int i = 0;
+		// initialize 5 fields for participant email addresses, invisible until specified
+		for(int k=0; k<5; k++) {
+			JTextField pD = new JTextField();
+			pD.setBounds(96, 404 + i, 196, 20);
+			pD.setVisible(false);
+			participantDataText.add(pD);
+			frame.getContentPane().add(pD);
+			i += 25;
+		}
 		
 		/**
 		 * Click the CANCEl button to terminate the process and go back to the previous window.

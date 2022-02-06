@@ -47,6 +47,8 @@ public class DatePickerWindow {
 	JButton addEventBtn = new JButton("ADD NEW EVENT");
 	
 	JButton logoutBtn = new JButton("Logout");
+	
+	JButton extractPlanBtn = new JButton("Extract weekly plan");
 
 	/**
 	 * Launch the application.
@@ -68,6 +70,7 @@ public class DatePickerWindow {
 	public void setUserName(String value) {
 		userNameLabel.setText(value);
 	} 
+	
 
 	/**
 	 * Create the application.
@@ -130,16 +133,31 @@ public class DatePickerWindow {
 		frame.getContentPane().add(eventInfo);
 		
 		
-		addEventBtn.setBounds(217, 175, 150, 31);
+		addEventBtn.setBounds(274, 175, 150, 31);
 		frame.getContentPane().add(addEventBtn);
 		
 		
-		checkBtn.setBounds(10, 179, 89, 23);
+		checkBtn.setBounds(10, 175, 89, 31);
 		frame.getContentPane().add(checkBtn);
 		
 		
 		logoutBtn.setBounds(311, 36, 89, 23);
 		frame.getContentPane().add(logoutBtn);
+		
+		
+		extractPlanBtn.setBounds(10, 226, 210, 31);
+		frame.getContentPane().add(extractPlanBtn);
+		
+		extractPlanBtn.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				ExtraPrintClass.exportWeek(userNameLabel.getText());
+			}
+			
+		});
+		
 		logoutBtn.addActionListener(new ActionListener() {
 
 			@Override
