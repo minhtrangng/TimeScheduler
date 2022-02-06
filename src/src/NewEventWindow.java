@@ -335,6 +335,9 @@ public class NewEventWindow {
 				String beginHourValue = beginHour.getText();
 				String beginMinuteValue = beginMinute.getText();
 				String beginTimeValue = beginHourValue + ":" + beginMinuteValue;
+				String eventDescr = descriptionTxt.getText();
+				String eventLocation = locationTxt.getText();
+				int participantNr = Integer.parseInt((String)participantDropdown.getSelectedItem());
 				
 				ResultSet result = null;
 				Connection connection = null;
@@ -347,15 +350,17 @@ public class NewEventWindow {
 					//statement1 = connection.prepareStatement("")
 					
 					statement = connection.prepareStatement(
-							"INSERT INTO eventdata(username, eventdate, activity, begintime, eventduration, reminder)"
-							+ "VALUES(?, ?, ?, ?, ?, ?)");
+							"INSERT INTO eventdata(username, eventdate, activity, begintime, description, location, eventduration, participantNr, reminder)"
+							+ "VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?)");
 					statement.setString(1,  username);
 					statement.setDate(2, sqlEventDate);
 					statement.setString(3, eventName);
 					statement.setString(4, beginTimeValue);
-					statement.setInt(5, eventDuration);
-					statement.setString(6, eventReminder);
-					
+					statement.setString(5, eventDescr);
+					statement.setString(6, eventLocation);
+					statement.setInt(7, eventDuration);
+					statement.setInt(8, participantNr);
+					statement.setString(9, eventReminder);
 					statement.executeUpdate();
 					
 					JOptionPane.showMessageDialog(frame, "Event is successfully saved!!");
