@@ -23,15 +23,17 @@ import java.util.*;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.JComboBox;
+import javax.mail.MessagingException;
 import javax.swing.JButton;
 import javax.swing.JFormattedTextField;
 
 /**
  * This class requires user to fulfill event information.  
  * 
- * @author minhtrang
+ * @author minhtrang & henri d.
  *
  */
 
@@ -58,7 +60,7 @@ public class NewEventWindow {
 	JLabel colonLabel = new JLabel(":");
 	private JTextField beginMinute;
 	JLabel descriptionLabel = new JLabel("DESCRIPTIONS:");
-	private JTextField descriptionTxt;
+	private JTextArea descriptionTxt;
 	private final JLabel locationLabel = new JLabel("LOCATION:");
 	private final JTextField locationTxt = new JTextField();
 	private final JLabel participantLabel = new JLabel("NUMBER OF PARTICIPANT(s):");
@@ -68,6 +70,7 @@ public class NewEventWindow {
 	JComboBox<String> participantDropdown = new JComboBox(digits);
 	private ArrayList<String> participantEmail = new ArrayList<>();
 	//private final JTextField textField = new JTextField();
+	EmailSender emailSender;
 	
 	
 	public void setDate(String value) {
@@ -240,7 +243,7 @@ public class NewEventWindow {
 		descriptionLabel.setBounds(28, 226, 93, 14);
 		frame.getContentPane().add(descriptionLabel);
 		
-		descriptionTxt = new JTextField();
+		descriptionTxt = new JTextArea();
 		descriptionTxt.setBounds(131, 223, 189, 61);
 		frame.getContentPane().add(descriptionTxt);
 		descriptionTxt.setColumns(10);
@@ -338,6 +341,33 @@ public class NewEventWindow {
 				String eventDescr = descriptionTxt.getText();
 				String eventLocation = locationTxt.getText();
 				int participantNr = Integer.parseInt((String)participantDropdown.getSelectedItem());
+				
+				// Get email(s) from the visible textfield(s)
+				for(JTextField textField : participantDataText) {
+					if(textField.isVisible()) {
+						participantEmail.add(textField.getText());
+					}
+				}
+				
+				/*
+				 * Initialize values and data for sending out emails to up to 
+				 * 5 participants
+				 */
+				try {
+					emailSender = new EmailSender();
+				}catch(MessagingException ex) {
+					ex.printStackTrace();
+				}
+				
+				// Prevent attempt of sending email to zero desired email addresses
+				if(participantEmail.size() >= 1) {
+					try {
+						emailSender.setContent(eDate, username, eventName, beginTimeValue, eventDuration, descriptionTxt, eventLocation, participantEmail);
+						emailSender.sendMail();
+					}catch (MessagingException ex) {
+						ex.printStackTrace();
+					}
+				}
 				
 				ResultSet result = null;
 				Connection connection = null;

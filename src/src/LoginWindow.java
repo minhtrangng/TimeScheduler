@@ -8,8 +8,13 @@ import java.awt.event.ActionListener;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.sql.*;
+import java.text.ParseException;
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.time.temporal.ChronoUnit;
+import java.util.ArrayList;
 
-
+import javax.mail.MessagingException;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -20,7 +25,7 @@ import javax.swing.JTextField;
 /**
  * This class allow user to create a new account and use the registered information to login.
  * 
- * @author minhtrang
+ * @author minhtrang & henri d.
  *
  */
 
@@ -233,6 +238,95 @@ public class LoginWindow extends JFrame {
 		);
 		
 		
+	}
+	
+	
+	/**
+	 * 	  checkReminders() is supposed to look through all events in the event database and check if their reminder email
+	 * 	  is due. This might happen too late depending on how often some user logs in, but is a workaround around some
+	 * 	  problems we faced.
+	 * 	  For every event, if its not scheduled for the next day, it checks if the duration between localTime.now() and
+	 * 	  the scheduled beginTime is <= the desired reminder duration. If yes, the reminder email is sent.
+	 *
+	 * 	 @author henri d.
+	 */
+	private void checkReminders() {
+		Connection con = null;
+		Statement stmt = null;
+		DateLabelFormatter dlf = new DateLabelFormatter();
+
+		//DateTimeFormatter dtfTime = DateTimeFormatter.ofPattern("HHmmss");
+		LocalTime time = LocalTime.now();
+		LocalDate date = LocalDate.now();
+		int status = 0;
+
+		try{
+			con = JDBCMySQLConnection.getConnection();
+			//stmt = con.prepareStatement("SELECT * FROM eventdata");
+
+			ResultSet rs = stmt.executeQuery("SELECT * FROM eventdata");
+			while(rs.next()) {
+				status = 0;
+				LocalDate tempDate = rs.getDate("eventdate").toLocalDate();
+				String beginTimeString = rs.getString("begintime");
+				LocalTime tempTime = dlf.stringToTime(beginTimeString);
+
+
+				String reminder = rs.getString("reminder");
+
+				// When the reminder is ready to be sent, set status to 1
+				// If reminder is 7 days: event is on 7 days or less and hasnt happened yet
+				if(reminder.equals("1 week") && ChronoUnit.DAYS.between(date, tempDate) <= 7 && ChronoUnit.DAYS.between(date, tempDate) >= 0) {
+					status = 1;
+				}
+				// If reminder is 3 days: event is on 3 days or less and hasnt happened yet
+				else if(reminder.equals("3 days") && ChronoUnit.DAYS.between(date, tempDate) <= 3 && ChronoUnit.DAYS.between(date, tempDate) >= 0) {
+					status = 1;
+				}
+				// If reminder is 1 hour: event is on this day and happens in 1 hour or less and hasnt happened yet
+				else if(reminder.equals("1 hour") && date.equals(tempDate) && ChronoUnit.MINUTES.between(time, tempTime) <= 60 && ChronoUnit.MINUTES.between(time, tempTime) >= 0) {
+					status = 1;
+				}
+				// If reminder is 10 min: see above
+				else if(reminder.equals("10 minutes") && date.equals(tempDate) && ChronoUnit.MINUTES.between(time, tempTime) <= 10 && ChronoUnit.MINUTES.between(time, tempTime) >= 0) {
+					status = 1;
+				}
+
+				if(status == 1) {
+					// now the email can be send as a reminder, unfortunately it can be too late
+					// String date, String username, String eventName, String beginTime, int duration, JTextArea description, String location, ArrayList<String> emails
+					String eDate = dlf.valueToString(tempDate);
+					String username = rs.getString("username");
+					String eventName = rs.getString("eventname");
+					String beginTime = rs.getString("begintime");
+					int d = rs.getInt("duration");
+					String description = rs.getString("description");
+					String location = rs.getString("location");
+					String p1 = rs.getString("participant1");
+					String p2= rs.getString("participant2");
+					String p3 = rs.getString("participant3");
+					String p4 = rs.getString("participant4");
+					String p5 = rs.getString("participant5");
+					ArrayList<String> participants = new ArrayList<>();
+					participants.add(p1);
+					participants.add(p2);
+					participants.add(p3);
+					participants.add(p4);
+					participants.add(p5);
+
+					EmailSender emailSender = new EmailSender();
+					emailSender.setContentLate(eDate, username, eventName, beginTime, d, description, location, participants);
+					emailSender.sendMail();
+				}
+			}
+		}
+		catch(SQLException sqlException) {
+			sqlException.printStackTrace();
+		} catch (ParseException e) {
+			e.printStackTrace();
+		} catch (MessagingException e) {
+			e.printStackTrace();
+		}
 	}
 	
 	

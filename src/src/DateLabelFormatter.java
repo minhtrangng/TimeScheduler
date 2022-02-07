@@ -2,6 +2,7 @@ package src;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalTime;
 import java.util.Calendar;
 
 import javax.swing.JFormattedTextField.AbstractFormatter;
@@ -12,7 +13,7 @@ import javax.swing.JFormattedTextField.AbstractFormatter;
  * Reference: <a href="https://www.youtube.com/watch?v=4h8MhUtLV38">
  * How to build a Date Time Picker in Java(Last accessed: 05.02.2022)</a>
  *  
- * @author minhtrang
+ * @author minhtrang & henri d.
  */
 public class DateLabelFormatter extends AbstractFormatter {
 	
@@ -33,6 +34,35 @@ public class DateLabelFormatter extends AbstractFormatter {
 			return dateFormatter.format(cal.getTime());
 		}
 		return "";
+	}
+	
+	/**
+	 * Converts a begintime String from the database (format: HH:mm) to a LocalTime (format: HH:mm:ss) so it can be
+	 * compared with other LocalTime values
+	 *
+	 * @param str
+	 * @return
+	 */
+	public LocalTime stringToTime(String str) {
+		String tmp = "";
+
+		if(str.charAt(1) == ':') { // in case format is H:MM
+			tmp += "0";
+			tmp += str.substring(0,1);
+			tmp += ":";
+			tmp += str.substring(2,4);
+			tmp += ":00";
+		}
+		else {
+			tmp += str.substring(0,2);
+			tmp += ":";
+			tmp += str.substring(3,5);
+			tmp += ":00";
+		}
+		LocalTime tmpTime = LocalTime.parse(tmp);
+
+
+		return tmpTime;
 	}
 
 }
