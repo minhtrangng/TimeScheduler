@@ -342,32 +342,7 @@ public class NewEventWindow {
 				String eventLocation = locationTxt.getText();
 				int participantNr = Integer.parseInt((String)participantDropdown.getSelectedItem());
 				
-				// Get email(s) from the visible textfield(s)
-				for(JTextField textField : participantDataText) {
-					if(textField.isVisible()) {
-						participantEmail.add(textField.getText());
-					}
-				}
 				
-				/*
-				 * Initialize values and data for sending out emails to up to 
-				 * 5 participants
-				 */
-				try {
-					emailSender = new EmailSender();
-				}catch(MessagingException ex) {
-					ex.printStackTrace();
-				}
-				
-				// Prevent attempt of sending email to zero desired email addresses
-				if(participantEmail.size() >= 1) {
-					try {
-						emailSender.setContent(eDate, username, eventName, beginTimeValue, eventDuration, descriptionTxt, eventLocation, participantEmail);
-						emailSender.sendMail();
-					}catch (MessagingException ex) {
-						ex.printStackTrace();
-					}
-				}
 				
 				ResultSet result = null;
 				Connection connection = null;
