@@ -1,10 +1,10 @@
 package src;
 
-/*
-@autor: Henri Dannenhöfer
-Class to send out (reminder) e-mails
-
- */
+/**
+ * This class provides the necessary functions to configure and send emails
+ *
+ * @author Henri D.
+*/
 
 import javax.mail.*;
 import javax.mail.internet.AddressException;
@@ -21,7 +21,7 @@ public class EmailSender {
     private Message message;
 
     /**
-     *  Constructor of emailSender class sets the properties to connect to Googles´ GMail
+     *  Constructor of emailSender class sets the properties to connect to GooglesÂ´ GMail
      *  Some default parameters must be set as properties to access the google mail api
      *
      *  Shared Email: timescheduler.frauas@gmail.com,                              pw: _tsfrankfurt
@@ -61,64 +61,7 @@ public class EmailSender {
         System.out.println("Email sent successfully!");
     }
 
-    /**
-     * (OLD) setContent, just for testing now
-     *
-     * @param date
-     * @param username
-     * @param eventName
-     * @param beginTime
-     * @param duration
-     * @param eventDescr
-     * @param location
-     * @param emails
-     * @throws MessagingException
-     */
-    public void setContent(String date, String username, String eventName, String beginTime, int duration, JTextArea eventDescr, String location, ArrayList<String> emails) throws MessagingException {
-
-        String content =
-                "    \n  Scheduled Event from: "+ username+  "\n\n" +
-                "Day:             " + date + "\n"+
-                "Name:            " + eventName + "\n" +
-                "Description:     ";
-
-        // for layout of email we split the description into lines and format the description
-        String [] sa = eventDescr.getText().split("\n");
-        for(String str : sa) {
-            content += str + "\n" + "                 ";
-        }
-
-        content +=
-                "\nBegin time:      " + beginTime + "\n" +
-                "Duration:        " + duration + " day(s)\n" +
-                "Location:        " + location + "\n" +
-                "Participant(s):  ";
-
-        // adding email addresses to email layout
-        int start = 0;
-        Address addressTo_temp = null;
-
-        for (String receiver : emails) {
-            content += receiver;
-            start++;
-            // no ',' after last email, so position is compared with total number of participants
-            if(!(start == emails.size())) {
-                content += ", ";
-            }
-            //
-            try {
-                addressTo_temp = new InternetAddress(receiver);
-                message.addRecipient(MimeMessage.RecipientType.TO, addressTo_temp);
-            } catch (AddressException e) {
-                System.out.println("Problem setting recipient emails.");
-                e.printStackTrace();
-            }
-        }
-        message.setSubject("Time Scheduler Event"); // setting content of email
-        message.setText(content);
-    }
-
-
+    
     /**
      * Sets content, recipients and subject of the reminder email. Data is for this function taken from the
      * event database and added to the mail
