@@ -153,6 +153,7 @@ public class DatePickerWindow {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
+				//JOptionPane.showMessageDialog(frame, ExtraPrintClass.exportWeek(userNameLabel.getText()));
 				ExtraPrintClass.exportWeek(userNameLabel.getText());
 			}
 			
@@ -216,14 +217,12 @@ public class DatePickerWindow {
 						statement = connection.prepareStatement("SELECT * FROM eventdata WHERE username = '" + username + "' AND eventdate = '" + eventDate + "'");
 						result = statement.executeQuery();
 						
+						
 						while(result.next()) {
 							String usrName = result.getString("username");
 							String eventContent = result.getString("activity");
-							//int eventDuration = result.getInt("eventduration");
-							//String eventReminder = result.getString("reminder");
-							
+									
 							if(username.equalsIgnoreCase(usrName)) {
-								//eventInfo.setText(eventContent + " | Duration: " + eventDuration + " | Remind me after: " + eventReminder);
 								eventInfo.setText(eventContent);
 							}
 						}

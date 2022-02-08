@@ -62,6 +62,10 @@ public class EmailSender {
     }
 
     
+<<<<<<< HEAD
+=======
+
+>>>>>>> 9d33527 (change)
     /**
      * Sets content, recipients and subject of the reminder email. Data is for this function taken from the
      * event database and added to the mail
@@ -78,7 +82,8 @@ public class EmailSender {
      * @throws MessagingException
      */
     public void setContentLate(String date, String username, String eventName, String beginTime, int duration, String description, String location, ArrayList<String> emails) throws MessagingException {
-        if(description == null) {
+    	System.out.println("Inside for");
+    	if(description == null) {
             description = " ";
         }
         String content =
@@ -102,6 +107,7 @@ public class EmailSender {
         // adding email addresses to email layout
         int start = 0;
         Address addressTo_temp = null;
+<<<<<<< HEAD
         
         // delete possible null value Strings
         ArrayList<String> toRemove = new ArrayList<>();
@@ -112,7 +118,12 @@ public class EmailSender {
         }
         emails.removeAll(toRemove);
 
+=======
+       
+       // emails.removeIf(str -> str.equals("n"));
+>>>>>>> 9d33527 (change)
         for (String receiver : emails) {
+        	if(receiver == null) continue;
             content += receiver;
             start++;
             // no ',' after last email, so position is compared with total number of participants

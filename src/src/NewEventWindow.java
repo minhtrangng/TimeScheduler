@@ -166,6 +166,10 @@ public class NewEventWindow {
 		durationTxtField.setBounds(131, 141, 46, 20);
 		//durationTxtField.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(java.text.NumberFormat.getIntegerInstance())));
 		frame.getContentPane().add(durationTxtField);
+		
+		/**
+		 * Retriction so that text field of event duration only accept numbers
+		 */
 		durationTxtField.addKeyListener(new KeyAdapter() {
 			public void keyTyped(KeyEvent e) {
 				char c = e.getKeyChar();
@@ -208,6 +212,9 @@ public class NewEventWindow {
 		frame.getContentPane().add(beginHour);
 		beginHour.setColumns(10);
 		
+		/**
+		 * Retriction so that text field of begin hour only accept numbers
+		 */
 		beginHour.addKeyListener(new KeyAdapter() {
 			public void keyTyped(KeyEvent e) {
 				char c = e.getKeyChar();
@@ -227,7 +234,9 @@ public class NewEventWindow {
 		beginMinute.setBounds(167, 107, 26, 20);
 		frame.getContentPane().add(beginMinute);
 		
-		
+		/**
+		 * Retriction so that text field of begin minute only accept numbers
+		 */
 		beginMinute.addKeyListener(new KeyAdapter() {
 			public void keyTyped(KeyEvent e) {
 				char c = e.getKeyChar();
@@ -281,9 +290,7 @@ public class NewEventWindow {
 			
 		});
 		
-		/*textField.setBounds(96, 404, 196, 20);
-		textField.setColumns(10);
-		frame.getContentPane().add(textField);*/
+		
 		
 		participantDataText = new ArrayList<>();
 		int i = 0;
@@ -341,8 +348,23 @@ public class NewEventWindow {
 				String eventDescr = descriptionTxt.getText();
 				String eventLocation = locationTxt.getText();
 				int participantNr = Integer.parseInt((String)participantDropdown.getSelectedItem());
+	
+				// get emails from the visible textfields
+				/*
+				for(JTextField textField : participantDataText) {
+					if(textField.isVisible()) {
+						participantEmail.add(textField.getText());
+					}
+					else {
+						participantEmail.add(null);
+					}
+				} */
 				
-				
+				for(JTextField jtf: participantDataText) {
+					if(!jtf.isVisible()) {
+						jtf = null;
+					}
+				}
 				
 				ResultSet result = null;
 				Connection connection = null;
@@ -354,9 +376,11 @@ public class NewEventWindow {
 					
 					//statement1 = connection.prepareStatement("")
 					
+					//int remaining = 5 - participantEmail.size();
+					
 					statement = connection.prepareStatement(
-							"INSERT INTO eventdata(username, eventdate, activity, begintime, description, location, eventduration, participantNr, reminder)"
-							+ "VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?)");
+							"INSERT INTO eventdata(username, eventdate, activity, begintime, description, location, eventduration, participantNr, reminder, participant1, participant2, participant3, participant4, participant5)"
+							+ "VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
 					statement.setString(1,  username);
 					statement.setDate(2, sqlEventDate);
 					statement.setString(3, eventName);
@@ -366,6 +390,12 @@ public class NewEventWindow {
 					statement.setInt(7, eventDuration);
 					statement.setInt(8, participantNr);
 					statement.setString(9, eventReminder);
+					statement.setString(10, participantDataText.get(0).getText());
+					statement.setString(11, participantDataText.get(1).getText());
+					statement.setString(12, participantDataText.get(2).getText());
+					statement.setString(13, participantDataText.get(3).getText());
+					statement.setString(14, participantDataText.get(4).getText());
+					
 					statement.executeUpdate();
 					
 					JOptionPane.showMessageDialog(frame, "Event is successfully saved!!");

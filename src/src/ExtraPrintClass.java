@@ -6,6 +6,8 @@ import java.io.IOException;
 import java.sql.*;
 import java.time.*;
 
+import javax.swing.JOptionPane;
+
 public class ExtraPrintClass {
 	
 	// setting lower boundry of frame to date of monday	
@@ -37,7 +39,7 @@ public class ExtraPrintClass {
 		static void exportWeek(String username)
 		{
 			PreparedStatement preparedStatement = null;
-			LocalDate today = LocalDate.of(2022,01,25);
+			LocalDate today = LocalDate.of(2022,02,07);
 			//LocalDate today = LocalDate.now();
 			today = today.plusDays(3);
 			String monday = getMonday(today); 
@@ -58,34 +60,37 @@ public class ExtraPrintClass {
 			try
 	//create database connection and query to get all events within boundry set by getMonday and getSunday
 			{	
-				//Class.forName("com.mysql.jdbc.Driver");
-				//Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/sonoo?characterEncoding=utf8","root","root");
 				
 				Connection connection = JDBCMySQLConnection.getConnection();
 				PreparedStatement statement = connection.prepareStatement("SELECT * FROM eventdata WHERE username = '" + username + "' AND eventdate BETWEEN '" + monday + "' AND '" + sunday + "'");
-				//Statement stmt = con.createStatement();
-				//ResultSet rs = stmt.executeQuery("SELECT * FROM withdate WHERE username = \"" + username1 + "\" AND WHERE eventdate BETWEEN \"" + monday + "\" AND \"" + sunday +"\"");
 				ResultSet result = statement.executeQuery();
 				try
 	// open file and start writing to it
 				{
 					FileWriter myWriter = new FileWriter("this_week.txt");
 					myWriter.write("Appointments from " + monday + " to " + sunday +"\n");
-					while (result.next())
-						
-	// loop through all events withinboundry and write the necessary information to file++
+					//if(!result.next()) {
+						//return "There is no event this week!";
+					//}
+					//else {
+						while (result.next())
+							
+							// loop through all events withinboundry and write the necessary information to file++
 						{
 							myWriter.write("========================\n");
-//							myWriter.write(rs.getString(3) + ":\n");
+							//myWriter.write(rs.getString(3) + ":\n");
 							today = today.parse(result.getString(3));
 							myWriter.write(today.getDayOfWeek().name() + today + "\n");
 							myWriter.write("Activity: " + result.getString(4)+"\n");
 							myWriter.write("Begintime: "+result.getString(5)+"\n");
-							myWriter.write("Eventduration: "+result.getInt(6)+"\n");
-							
+							myWriter.write("Eventduration: "+result.getInt(8)+"\n");
+													
 						}
-					myWriter.close();
-					System.out.println("txt overwritten");
+						myWriter.close();
+						System.out.println("txt overwritten");
+						//return "Weekly plan was successfully extracted!!";
+					//}
+					
 				} catch (IOException e)
 		 			{
 						System.out.println("error");
@@ -93,7 +98,6 @@ public class ExtraPrintClass {
 		 			}
 				connection.close();
 			}catch(Exception e){ System.out.println(e);}
+			//return "There is no event this week!";
 		}
-	
-
 }

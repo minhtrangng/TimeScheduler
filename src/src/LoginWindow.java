@@ -11,6 +11,7 @@ import java.sql.*;
 import java.text.ParseException;
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 
@@ -43,6 +44,7 @@ public class LoginWindow extends JFrame {
 			public void run() {
 				try {
 					LoginWindow window = new LoginWindow();
+					checkReminders();
 					window.frame.setVisible(true);
 					window.frame.setTitle("Time Scheduler");
 				} catch (Exception e) {
@@ -250,7 +252,7 @@ public class LoginWindow extends JFrame {
 	 *
 	 * 	 @author henri d.
 	 */
-	private void checkReminders() {
+	private static void checkReminders() {
 		Connection con = null;
 		Statement stmt = null;
 		DateLabelFormatter dlf = new DateLabelFormatter();
@@ -262,7 +264,7 @@ public class LoginWindow extends JFrame {
 
 		try{
 			con = JDBCMySQLConnection.getConnection();
-			//stmt = con.prepareStatement("SELECT * FROM eventdata");
+			stmt = con.prepareStatement("SELECT * FROM eventdata");
 
 			ResultSet rs = stmt.executeQuery("SELECT * FROM eventdata");
 			while(rs.next()) {
@@ -282,6 +284,7 @@ public class LoginWindow extends JFrame {
 				// If reminder is 3 days: event is on 3 days or less and hasnt happened yet
 				else if(reminder.equals("3 days") && ChronoUnit.DAYS.between(date, tempDate) <= 3 && ChronoUnit.DAYS.between(date, tempDate) >= 0) {
 					status = 1;
+					
 				}
 				// If reminder is 1 hour: event is on this day and happens in 1 hour or less and hasnt happened yet
 				else if(reminder.equals("1 hour") && date.equals(tempDate) && ChronoUnit.MINUTES.between(time, tempTime) <= 60 && ChronoUnit.MINUTES.between(time, tempTime) >= 0) {
@@ -295,11 +298,12 @@ public class LoginWindow extends JFrame {
 				if(status == 1) {
 					// now the email can be send as a reminder, unfortunately it can be too late
 					// String date, String username, String eventName, String beginTime, int duration, JTextArea description, String location, ArrayList<String> emails
-					String eDate = dlf.valueToString(tempDate);
+					//String eDate = dlf.valueToString(tempDate);
+					String eDate = tempDate.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
 					String username = rs.getString("username");
-					String eventName = rs.getString("eventname");
+					String eventName = rs.getString("activity");
 					String beginTime = rs.getString("begintime");
-					int d = rs.getInt("duration");
+					int d = rs.getInt("eventduration");
 					String description = rs.getString("description");
 					String location = rs.getString("location");
 					String p1 = rs.getString("participant1");
@@ -322,8 +326,6 @@ public class LoginWindow extends JFrame {
 		}
 		catch(SQLException sqlException) {
 			sqlException.printStackTrace();
-		} catch (ParseException e) {
-			e.printStackTrace();
 		} catch (MessagingException e) {
 			e.printStackTrace();
 		}

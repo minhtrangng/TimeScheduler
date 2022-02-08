@@ -1,26 +1,11 @@
-Appointments from 2022-01-24 to 2022-01-30
+Appointments from 2022-02-07 to 2022-02-13
 ========================
-TUESDAY2022-01-25
-Activity: OOP
-Begintime: 8:15
+MONDAY2022-02-07
+Activity: Java Exercise
+Begintime: 19:30
 Eventduration: 1
 ========================
-THURSDAY2022-01-27
-Activity: E-Polo Project
-Begintime: 10:00
-Eventduration: 1
-========================
-WEDNESDAY2022-01-26
-Activity: Chinese course
-Begintime: 17:30
-Eventduration: 1
-========================
-FRIDAY2022-01-28
-Activity: Go to market
-Begintime: 11:00
-Eventduration: 1
-========================
-FRIDAY2022-01-28
-Activity: Chinese course
-Begintime: 10:00
+TUESDAY2022-02-08
+Activity: HMI Praesentation
+Begintime: 11:45
 Eventduration: 1
