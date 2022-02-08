@@ -83,25 +83,34 @@ public class EmailSender {
         }
         String content =
                 "    \n  Scheduled Event from: "+ username+  "\n\n" +
-                        "Day:               " + date + "\n"+
+                        "Day:              " + date + "\n"+
                         "Name:             " + eventName + "\n" +
-                        "Description:     ";
+                        "Description:      ";
 
         // for layout of email we split the description into lines and format the description
         String [] sa = description.split("\n");
         for(String str : sa) {
-            content += str + "\n" + "                     ";
+            content += str + "\n" + "                  ";
         }
 
         content +=
-                "\nBegin time:      " + beginTime + "\n" +
+                      "\nBegin time:       " + beginTime + "\n" +
                         "Duration:         " + duration + " day(s)\n" +
                         "Location:         " + location + "\n" +
                         "Participant(s):   ";
-
+                       
         // adding email addresses to email layout
         int start = 0;
         Address addressTo_temp = null;
+        
+        // delete possible null value Strings
+        ArrayList<String> toRemove = new ArrayList<>();
+        for(String s : emails) {
+            if(s == null) {
+                toRemove.add(s);
+            }
+        }
+        emails.removeAll(toRemove);
 
         for (String receiver : emails) {
             content += receiver;
