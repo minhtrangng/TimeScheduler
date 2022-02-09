@@ -140,9 +140,9 @@ public class EditUser extends JFrame{
         frame.setContentPane(contentPane);
         contentPane.setLayout(null);
 
-        JLabel reg = new JLabel("User registration");
+        JLabel reg = new JLabel("Edit User");
 		reg.setFont(new Font("Thoma", Font.BOLD, 25));
-		reg.setBounds(180, 0, 224, 48);
+		reg.setBounds(200, 0, 224, 48);
 		contentPane.add(reg);
 		
 		// Searching for the desired user
