@@ -264,7 +264,7 @@ public class LoginWindow extends JFrame {
 
 		try{
 			con = JDBCMySQLConnection.getConnection();
-			stmt = con.prepareStatement("SELECT * FROM eventdata WHERE emailstatus = ");
+			stmt = con.prepareStatement("SELECT * FROM eventdata WHERE emailstatus = 0");
 
 			ResultSet rs = stmt.executeQuery("SELECT * FROM eventdata WHERE emailstatus = 0");
 			while(rs.next()) {
