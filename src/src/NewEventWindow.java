@@ -379,8 +379,8 @@ public class NewEventWindow {
 					//int remaining = 5 - participantEmail.size();
 					
 					statement = connection.prepareStatement(
-							"INSERT INTO eventdata(username, eventdate, activity, begintime, description, location, eventduration, participantNr, reminder, participant1, participant2, participant3, participant4, participant5)"
-							+ "VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+							"INSERT INTO eventdata(username, eventdate, activity, begintime, description, location, eventduration, participantNr, reminder, participant1, participant2, participant3, participant4, participant5, emailstatus)"
+							+ "VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
 					statement.setString(1,  username);
 					statement.setDate(2, sqlEventDate);
 					statement.setString(3, eventName);
@@ -395,6 +395,7 @@ public class NewEventWindow {
 					statement.setString(12, participantDataText.get(2).getText());
 					statement.setString(13, participantDataText.get(3).getText());
 					statement.setString(14, participantDataText.get(4).getText());
+					statement.setInt(15, 0);
 					
 					statement.executeUpdate();
 					

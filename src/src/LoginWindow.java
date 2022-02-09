@@ -264,9 +264,9 @@ public class LoginWindow extends JFrame {
 
 		try{
 			con = JDBCMySQLConnection.getConnection();
-			stmt = con.prepareStatement("SELECT * FROM eventdata");
+			stmt = con.prepareStatement("SELECT * FROM eventdata WHERE emailstatus = ");
 
-			ResultSet rs = stmt.executeQuery("SELECT * FROM eventdata");
+			ResultSet rs = stmt.executeQuery("SELECT * FROM eventdata WHERE emailstatus = 0");
 			while(rs.next()) {
 				status = 0;
 				LocalDate tempDate = rs.getDate("eventdate").toLocalDate();
@@ -275,6 +275,11 @@ public class LoginWindow extends JFrame {
 
 
 				String reminder = rs.getString("reminder");
+				
+				if(tempDate.isBefore(date)) {
+					rs.updateInt("emailstatus", 1);
+					continue;
+				}
 
 				// When the reminder is ready to be sent, set status to 1
 				// If reminder is 7 days: event is on 7 days or less and hasnt happened yet
@@ -321,6 +326,8 @@ public class LoginWindow extends JFrame {
 					EmailSender emailSender = new EmailSender();
 					emailSender.setContentLate(eDate, username, eventName, beginTime, d, description, location, participants);
 					emailSender.sendMail();
+					
+					rs.updateInt("emailstatus", 1);
 				}
 			}
 		}
