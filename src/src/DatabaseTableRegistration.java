@@ -100,6 +100,8 @@ public class DatabaseTableRegistration extends JFrame{
 				data.add(row);
 			}
 			
+			//JTable initialize
+			
 			JTable table = new JTable(data, column);
 			JScrollPane pane = new JScrollPane(table);
 			frame.getContentPane().add(pane);
