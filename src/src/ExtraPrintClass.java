@@ -53,7 +53,7 @@ public class ExtraPrintClass {
 /** 
  * This function creates a file in the project folder with the name this_week.txt
  * It also establishes a connection to the database and writes the necessary data into the txt-file
- * @param username
+ * @param usernamegit 
  */
 	
 		static void exportWeek(String username)
