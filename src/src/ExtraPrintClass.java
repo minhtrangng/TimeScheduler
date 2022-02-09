@@ -8,9 +8,15 @@ import java.time.*;
 
 import javax.swing.JOptionPane;
 
+/**
+ * This Class exists to export the events of the current week into a txt-file
+ */
+
 public class ExtraPrintClass {
 	
-	// setting lower boundry of frame to date of monday	
+/**
+ * This function sets the lower boundry of the week
+ */	
 		static String getMonday(LocalDate _today)
 		{
 			String _monday = "";
@@ -23,7 +29,9 @@ public class ExtraPrintClass {
 		}
 
 
-	// setting uper boundry of frame to date of monday	
+/**
+ * This function sets the upper boundry of the week
+ */	
 		static String getSunday(LocalDate _today)
 		{
 			String _sunday= "";
@@ -36,6 +44,10 @@ public class ExtraPrintClass {
 		}
 		
 
+/**
+ * This function creates a file in the project folder with the name this_week.txt
+ * It also establishes a connection to the database and writes the necessary data into the txt-file
+ */
 		static void exportWeek(String username)
 		{
 			PreparedStatement preparedStatement = null;
@@ -43,8 +55,7 @@ public class ExtraPrintClass {
 			//LocalDate today = LocalDate.now();
 			today = today.plusDays(3);
 			String monday = getMonday(today); 
-			String sunday = getSunday(today);
-	// create file		
+			String sunday = getSunday(today);		
 			try {
 				File myObj = new File("this_week.txt");
 			    if (myObj.createNewFile()) {
@@ -58,14 +69,12 @@ public class ExtraPrintClass {
 			}
 
 			try
-	//create database connection and query to get all events within boundry set by getMonday and getSunday
 			{	
 				
 				Connection connection = JDBCMySQLConnection.getConnection();
-				PreparedStatement statement = connection.prepareStatement("SELECT * FROM eventdata WHERE username = '" + username + "' AND eventdate BETWEEN '" + monday + "' AND '" + sunday + "'");
+				PreparedStatement statement = connection.prepareStatement("SELECT * FROM eventdata WHERE username = '" + username + "' AND eventdate BETWEEN '" + monday + "' AND '" + sunday + "' ORDER BY eventdate ASC");
 				ResultSet result = statement.executeQuery();
 				try
-	// open file and start writing to it
 				{
 					FileWriter myWriter = new FileWriter("this_week.txt");
 					myWriter.write("Appointments from " + monday + " to " + sunday +"\n");
@@ -75,16 +84,16 @@ public class ExtraPrintClass {
 					//else {
 						while (result.next())
 							
-							// loop through all events withinboundry and write the necessary information to file++
 						{
 							myWriter.write("========================\n");
 							//myWriter.write(rs.getString(3) + ":\n");
 							today = today.parse(result.getString(3));
-							myWriter.write(today.getDayOfWeek().name() + today + "\n");
+							myWriter.write(today.getDayOfWeek().name() + " " + today + "\n");
 							myWriter.write("Activity: " + result.getString(4)+"\n");
 							myWriter.write("Begintime: "+result.getString(5)+"\n");
-							myWriter.write("Eventduration: "+result.getInt(8)+"\n");
-													
+							myWriter.write("Location: "+result.getString(7)+"\n");
+							myWriter.write("Description: "+result.getString(6)+"\n");
+							myWriter.write("Amount of participants: "+result.getInt(9)+"\n");			
 						}
 						myWriter.close();
 						System.out.println("txt overwritten");
