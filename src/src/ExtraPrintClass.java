@@ -10,7 +10,7 @@ import javax.swing.JOptionPane;
 
 /**
  * This Class exists to export the events of the current week into a txt-file
- * von Stefan Nguyen
+ * @author stefan
  */
 
 public class ExtraPrintClass {
@@ -18,7 +18,7 @@ public class ExtraPrintClass {
 /**
  * This function sets the lower boundry of the week
  * @param _today
- * @return
+ * @return _monday
  */
 		static String getMonday(LocalDate _today)
 		{
@@ -35,7 +35,7 @@ public class ExtraPrintClass {
 /**
  * This function sets the upper boundry of the week
  * @param _today
- * @return
+ * @return _sunday
  */
 		static String getSunday(LocalDate _today)
 		{
