@@ -82,18 +82,22 @@ public class DatabaseTableRegistration extends JFrame{
 			result = statement.executeQuery();
 			resultMetaData = result.getMetaData();
 			
+			//number of columns
 			int col = resultMetaData.getColumnCount();
 			Vector column = new Vector(col);
 			
+			//loop for column name
 			for(int i=1; i<=col; i++) {
 				column.add(resultMetaData.getColumnName(i));
 			}
 			Vector data = new Vector();
 			Vector row = new Vector();
 			
+			//row run
 			while(result.next()) {
 				row = new Vector(col);
 				
+				//get row names 
 				for(int i=1; i<=col; i++) {
 					row.add(result.getString(i));
 				}
