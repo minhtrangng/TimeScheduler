@@ -18,7 +18,7 @@ import java.awt.*;
 /**
  * This Class exists to create a table that lists every event of a user ordered by date.
  * in addition to listing every event it also colors the rows depending on the priority.
- * @author Stefan
+ * @author Stefan &amp;&amp; selma
  *
  */
 
