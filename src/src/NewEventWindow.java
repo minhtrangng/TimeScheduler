@@ -33,7 +33,7 @@ import javax.swing.JFormattedTextField;
 /**
  * This class requires user to fulfill event information.  
  * 
- * @author minhtrang & henri d.
+ * @author minhtrang &amp;&amp; henri d.
  *
  */
 
