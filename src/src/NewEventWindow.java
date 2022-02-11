@@ -63,6 +63,9 @@ public class NewEventWindow {
 	private JTextArea descriptionTxt;
 	private final JLabel locationLabel = new JLabel("LOCATION:");
 	private final JTextField locationTxt = new JTextField();
+	private final JLabel priorityLabel = new JLabel("PRIORITY");
+	String[] priorityChoices = {"high", "medium", "low"};
+	JComboBox<String> priorityDropdown = new JComboBox(priorityChoices);
 	private final JLabel participantLabel = new JLabel("NUMBER OF PARTICIPANT(s):");
 	
 	private ArrayList<JTextField> participantDataText;
@@ -194,13 +197,13 @@ public class NewEventWindow {
 		frame.getContentPane().add(reminderDropdown);
 		
 		
-		saveBtn.setBounds(330, 575, 89, 23);
+		saveBtn.setBounds(330, 600, 89, 23);
 		frame.getContentPane().add(saveBtn);
 		
 		
 		
 		
-		cancelBtn.setBounds(68, 575, 89, 23);
+		cancelBtn.setBounds(68, 600, 89, 23);
 		frame.getContentPane().add(cancelBtn);
 		
 		
@@ -268,6 +271,12 @@ public class NewEventWindow {
 		
 		participantLabel.setBounds(28, 360, 165, 28);
 		frame.getContentPane().add(participantLabel);
+		
+		priorityLabel.setBounds(28, 535, 165, 28);
+		frame.getContentPane().add(priorityLabel);
+		
+		priorityDropdown.setBounds(131, 540, 102, 18);
+		frame.getContentPane().add(priorityDropdown);
 		
 		
 		participantDropdown.setBounds(246, 365, 74, 18);
@@ -348,6 +357,7 @@ public class NewEventWindow {
 				String eventDescr = descriptionTxt.getText();
 				String eventLocation = locationTxt.getText();
 				int participantNr = Integer.parseInt((String)participantDropdown.getSelectedItem());
+				String priority = (String) priorityDropdown.getSelectedItem();
 	
 				// get emails from the visible textfields
 				/*
@@ -379,8 +389,8 @@ public class NewEventWindow {
 					//int remaining = 5 - participantEmail.size();
 					
 					statement = connection.prepareStatement(
-							"INSERT INTO eventdata(username, eventdate, activity, begintime, description, location, eventduration, participantNr, reminder, participant1, participant2, participant3, participant4, participant5, emailstatus)"
-							+ "VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+							"INSERT INTO eventdata(username, eventdate, activity, begintime, description, location, eventduration, participantNr, reminder, participant1, participant2, participant3, participant4, participant5, emailstatus, priority)"
+							+ "VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
 					statement.setString(1,  username);
 					statement.setDate(2, sqlEventDate);
 					statement.setString(3, eventName);
@@ -396,6 +406,7 @@ public class NewEventWindow {
 					statement.setString(13, participantDataText.get(3).getText());
 					statement.setString(14, participantDataText.get(4).getText());
 					statement.setInt(15, 0);
+					statement.setString(16, priority);
 					
 					statement.executeUpdate();
 					
