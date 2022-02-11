@@ -111,6 +111,8 @@ private void initialize(String username) {
 				 if (!isRowSelected(row)) 
 				 {
 					 String type = (String)getModel().getValueAt(row, 16);
+
+					 if (type == null) {c.setBackground(Color.WHITE);return c;};
 					 if (type.equalsIgnoreCase("high")) {c.setBackground(new Color(255, 111, 0));}
 					 if (type.equalsIgnoreCase("medium")) {c.setBackground(new Color(255, 232, 23));}
 					 if (type.equalsIgnoreCase("low")) {c.setBackground(new Color(108, 255, 23));}
