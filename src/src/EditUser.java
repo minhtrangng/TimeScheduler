@@ -28,7 +28,7 @@ import javax.swing.border.EmptyBorder;
 
 
 /**
- * @author selma & minhtrang
+ * @author selma &amp;&amp; minhtrang
  */
 
 public class EditUser extends JFrame{
