@@ -26,7 +26,7 @@ import javax.swing.JTextField;
 /**
  * This class allow user to create a new account and use the registered information to login.
  * 
- * @author minhtrang & henri d.
+ * @author minhtrang &amp;&amp; henri d.
  *
  */
 
