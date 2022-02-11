@@ -9,10 +9,7 @@ import javax.swing.JFormattedTextField.AbstractFormatter;
 
 /**
  * This class is used along with the JavaSwing component JDatePicker return the clicked date.
- * <p>
- * Reference: <a href="https://www.youtube.com/watch?v=4h8MhUtLV38">
- * How to build a Date Time Picker in Java(Last accessed: 05.02.2022)</a>
- *  
+ * 
  * @author minhtrang &amp;&amp; henri d.
  */
 public class DateLabelFormatter extends AbstractFormatter {
@@ -41,7 +38,7 @@ public class DateLabelFormatter extends AbstractFormatter {
 	 * compared with other LocalTime values
 	 *
 	 * @param str
-	 * @return
+	 * @return tmpTime
 	 */
 	public LocalTime stringToTime(String str) {
 		String tmp = "";

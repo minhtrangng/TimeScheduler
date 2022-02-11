@@ -1,4 +1,3 @@
-// References: https://www.javaguides.net/2019/07/login-application-using-java-swing-jdbc-mysql-example-tutorial.html
 
 package src;
 
@@ -59,7 +58,7 @@ public class LoginWindow extends JFrame {
 	
 	/**
 	 * The password needs to be securely saved and not as plaintext
-	 * <p>
+	 * 
 	 * This method will hash the entered password and 
 	 * return the password as ciphertext in form of String
 	 * @param password the entered password
@@ -149,16 +148,16 @@ public class LoginWindow extends JFrame {
 		
 		/**
 		 * After the user cliked the login button, the compare process will be executed behind.
-		 * <p>
+		 * 
 		 * The typed-in username and password will be taken out and compare with the data in the database.
 		 * The password was saved as ciphertext, because of that the entered password will be first hashed and then compared.
-		 * <p>
+		 * 
 		 * We will receive the same result if we hash two identical texts. 
 		 * That makes hash process easier to use in compare to the other encrypt procedures
-		 * <p>
+		 * 
 		 * It is first checked if admin is trying to log in. 
 		 * The admin will be redirected to the different window comparing with the normal users
-		 * <p>
+		 * 
 		 * If the user is not admin, the entered information will be verified.
 		 * After examining, a dialogue window will appear with the corresponding annoucement
 		 */
@@ -224,7 +223,7 @@ public class LoginWindow extends JFrame {
 		
 		/**
 		 * In case the user does not have a account yet, he/she must create one.
-		 * <p>
+		 * 
 		 * Register button will lead to a new window (Registration Window), 
 		 * where the user must type in couples information, for example: First name, last name, address,
 		 * username, password, ...  

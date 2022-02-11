@@ -1,4 +1,3 @@
-// References: https://www.javaguides.net/2019/07/login-application-using-java-swing-jdbc-mysql-example-tutorial.html
 
 
 package src;
@@ -9,9 +8,7 @@ import java.sql.SQLException;
 
 /**
  * This class acts like a brigde between IDE Java Eclipse and the local database.
- * <p>
- * Reference: <a href="https://www.javaguides.net/2019/07/login-application-using-java-swing-jdbc-mysql-example-tutorial.html">
- * Connect Database MySQL to IDE Java Eclipse (Last accessed: 05.02.2022)</a>
+ *
  * 
  * @author minhtrang
  *
@@ -21,7 +18,7 @@ public class JDBCMySQLConnection {
 	private static JDBCMySQLConnection instance = new JDBCMySQLConnection();
 	
 	/**
-	 * These four variables ({@link URL}, {@link user}, {@link password}, {@link driverClass}) 
+	 * These four variables URL, user, password, driverClass 
 	 * are constant and must match with the local database information.
 	 */
 	public static final String URL = "jdbc:mysql://localhost:3306/timescheduler";

@@ -189,7 +189,7 @@ public class DatePickerWindow {
 		
 		/**
 		 * The user uses the button 'Add new event' in case they want to add a new event.
-		 * <p>
+		 * 
 		 * The event will be saved with the choosen date and the username, so that it can be fetched later. 
 		 */
 		

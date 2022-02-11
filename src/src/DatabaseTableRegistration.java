@@ -1,6 +1,3 @@
-// References: https://www.it-swarm.com.de/de/java/anzeigen-von-datensaetzen-aus-der-mysql-datenbank-durch-jtable-java/1045096297/
-// References: https://www.youtube.com/watch?v=G4JeKZ6nDUI
-
 package src;
 
 import java.awt.EventQueue;

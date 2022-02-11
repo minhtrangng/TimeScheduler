@@ -1,4 +1,3 @@
-//References: https://www.javaguides.net/2019/07/registration-form-using-java-swing-jdbc-mysql-example-tutorial.html?m=1
 
 package src;
 

@@ -1,12 +1,14 @@
 package src;
 
+import javax.mail.*;
+
 /**
  * This class provides the necessary functions to configure and send emails
  *
  * @author Henri D.
 */
 
-import javax.mail.*;
+//import javax.mail.*;
 import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
