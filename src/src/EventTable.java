@@ -60,7 +60,7 @@ public EventTable(String username) {
 }
 
 /**
- * Creating the window for the event table
+ * Creating the EventTable and paint each row depending on the "priority" attribute
  * @param username
  */
 
@@ -71,10 +71,8 @@ private void initialize(String username) {
 	//frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	
 	ResultSetMetaData resultMetaData = null;
-	
-/**
- * setting the variables for the table
- */
+
+//get the data for the table(row, column, and content of cells)
 	try {
 		
 		Connection con = JDBCMySQLConnection.getConnection();
@@ -100,10 +98,10 @@ private void initialize(String username) {
 			}
 			data.add(row);
 		}
+
 		
-/**
- * creating the table and paint each row depending on the "priority" attribute
- */
+//creating the table and paint each row depending on the "priority" attribute
+
 		table = new JTable(data, column) 
 		{
 			 @Override
