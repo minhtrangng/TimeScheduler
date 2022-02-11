@@ -13,7 +13,7 @@ import javax.swing.JFormattedTextField.AbstractFormatter;
  * Reference: <a href="https://www.youtube.com/watch?v=4h8MhUtLV38">
  * How to build a Date Time Picker in Java(Last accessed: 05.02.2022)</a>
  *  
- * @author minhtrang & henri d.
+ * @author minhtrang &amp;&amp; henri d.
  */
 public class DateLabelFormatter extends AbstractFormatter {
 	
