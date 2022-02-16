@@ -271,12 +271,13 @@ public class LoginWindow extends JFrame {
 				LocalDate tempDate = rs.getDate("eventdate").toLocalDate();
 				String beginTimeString = rs.getString("begintime");
 				LocalTime tempTime = dlf.stringToTime(beginTimeString);
-
+				
+				int tempID = rs.getInt("eventid");
 
 				String reminder = rs.getString("reminder");
-				
+		
 				if(tempDate.isBefore(date)) {
-					rs.updateInt("emailstatus", 1);
+					con.createStatement().executeUpdate("UPDATE eventdata SET emailstatus = 1 WHERE eventID = " + tempID);
 					continue;
 				}
 
@@ -326,7 +327,8 @@ public class LoginWindow extends JFrame {
 					emailSender.setContentLate(eDate, username, eventName, beginTime, d, description, location, participants);
 					emailSender.sendMail();
 					
-					rs.updateInt("emailstatus", 1);
+					
+					con.createStatement().executeUpdate("UPDATE eventdata SET emailstatus = 1 WHERE eventID = " + tempID);
 				}
 			}
 		}

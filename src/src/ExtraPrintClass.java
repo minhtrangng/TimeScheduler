@@ -59,9 +59,9 @@ public class ExtraPrintClass {
 		static void exportWeek(String username)
 		{
 			PreparedStatement preparedStatement = null;
-			LocalDate today = LocalDate.of(2022,02,07);
-			//LocalDate today = LocalDate.now();
-			today = today.plusDays(3);
+			//LocalDate today = LocalDate.of(2022,02,07);
+			LocalDate today = LocalDate.now();
+			//today = today.plusDays(3);
 			String monday = getMonday(today); 
 			String sunday = getSunday(today);		
 			try {

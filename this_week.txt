@@ -1,11 +1,8 @@
-Appointments from 2022-02-07 to 2022-02-13
+Appointments from 2022-02-14 to 2022-02-20
 ========================
-MONDAY2022-02-07
-Activity: Java Exercise
-Begintime: 19:30
-Eventduration: 1
-========================
-TUESDAY2022-02-08
-Activity: HMI Praesentation
-Begintime: 11:45
-Eventduration: 1
+WEDNESDAY 2022-02-16
+Activity: Java Project Praesentation
+Begintime: 17:00
+Location: Zoom
+Description: Schluss Praesentation
+Amount of participants: 5
