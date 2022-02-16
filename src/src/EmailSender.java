@@ -80,7 +80,6 @@ public class EmailSender {
      * @throws MessagingException
      */
     public void setContentLate(String date, String username, String eventName, String beginTime, int duration, String description, String location, ArrayList<String> emails) throws MessagingException {
-    	System.out.println("Inside for");
     	if(description == null) {
             description = " ";
         }
